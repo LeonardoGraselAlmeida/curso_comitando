@@ -8,14 +8,14 @@
 import XCTest
 @testable import RestaurantDomain
 
-final class RestaurantDomainTests: XCTestCase {
-
+final class RemoteRestaurantLoaderTests: XCTestCase {
+    
     func test_initializer_remoteRemoteRestaurantLoader_and_validate_urlRequest() throws {
         let anyURL = try XCTUnwrap(URL(string: "http://comitando.com.br"))
         let client = NetworkClientSpy()
         let sut = RemoteRestaurantLoader(url: anyURL, networkClient: client )
         
-        sut.load()
+        sut.load { _ in }
         
         XCTAssertEqual(client.urlRequests, [anyURL])
     }
@@ -25,18 +25,40 @@ final class RestaurantDomainTests: XCTestCase {
         let client = NetworkClientSpy()
         let sut = RemoteRestaurantLoader(url: anyURL, networkClient: client )
         
-        sut.load()
-        sut.load()
+        sut.load { _ in }
+        sut.load { _ in }
         
         XCTAssertEqual(client.urlRequests, [anyURL, anyURL])
     }
+    
+    func test_load_and_returned_error_for_connectivity() throws {
+        let anyURL = try XCTUnwrap(URL(string: "http://comitando.com.br"))
+        let client = NetworkClientSpy()
+        let sut = RemoteRestaurantLoader(url: anyURL, networkClient: client )
+        
+        let exp = expectation(description: "esperando retorno da clousure")
+        var returnedError: Error?
+        sut.load { error in
+            returnedError = error
+            exp.fulfill()
+        }
+        
+        wait(for: [exp], timeout: 1.0)
+        
+        XCTAssertNotNil(returnedError)
+    }
 }
- 
+
 final class NetworkClientSpy: NetworkClient {
     
     private(set) var urlRequests: [URL?] = []
     
-    func request(from url: URL) {
+    func request(from url: URL, completion: @escaping (Error) -> Void) {
         urlRequests.append(url)
+        completion(anyError())
+    }
+    
+    private func anyError() -> Error {
+        return NSError(domain: "any error", code: 1)
     }
 }
