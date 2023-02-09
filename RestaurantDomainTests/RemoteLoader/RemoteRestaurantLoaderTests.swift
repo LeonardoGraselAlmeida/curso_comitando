@@ -78,6 +78,29 @@ final class RemoteRestaurantLoaderTests: XCTestCase {
         
     }
     
+    func test_load_and_returned_with_restaurant_item_list() throws {
+        let (sut, client, _) = makeSUT()
+        
+        let exp = expectation(description: "esperando retorno da clousure")
+        var returnedResult: RemoteRestaurantLoader.RemoteRestaurantResult?
+        sut.load { result in
+            returnedResult = result
+            exp.fulfill()
+        }
+        
+        let item1 = makeRestaurantItem()
+        let item2 = makeRestaurantItem()
+        let jsonItem = ["items": [item1.json, item2.json]]
+        
+        let data = try XCTUnwrap(JSONSerialization.data(withJSONObject: jsonItem))
+        
+        client.completionWithSuccess(data: data)
+        
+        wait(for: [exp], timeout: 1.0)
+        
+        XCTAssertEqual(returnedResult, .success([item1.model, item2.model]))
+    }
+    
     private func makeSUT() -> (sut: RemoteRestaurantLoader, client: NetworkClientSpy, anyUrl: URL) {
         let anyURL = URL(string: "http://comitando.com.br")!
         let client = NetworkClientSpy()
@@ -88,6 +111,35 @@ final class RemoteRestaurantLoaderTests: XCTestCase {
     
     private func emptyData() -> Data {
         return Data("{ \"items\": [] }".utf8)
+    }
+    
+    private func makeRestaurantItem(
+        id: UUID = UUID(),
+        name: String = "name",
+        location: String = "location",
+        distance: Float = 5.5,
+        ratings: Int = 4,
+        parasols: Int = 10
+    ) -> (model: RestaurantItem, json: [String: Any] ) {
+        
+        let model = RestaurantItem(
+            id: id,
+            name: name,
+            location: location,
+            distance: distance,
+            ratings: ratings,
+            parasols: ratings
+        )
+        let itemJson: [String : Any] = [
+            "id": model.id.uuidString,
+            "name": model.name,
+            "location": model.location,
+            "distance": model.distance,
+            "ratings": model.ratings,
+            "parasols": model.parasols
+        ]
+        
+        return (model, itemJson)
     }
 }
 
