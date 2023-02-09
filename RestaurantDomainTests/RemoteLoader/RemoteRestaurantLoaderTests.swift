@@ -31,7 +31,7 @@ final class RemoteRestaurantLoaderTests: XCTestCase {
         let (sut, client, _) = makeSUT()
         
         let exp = expectation(description: "esperando retorno da clousure")
-        var returnedResult: RemoteRestaurantLoader.Error?
+        var returnedResult: RemoteRestaurantLoader.RemoteRestaurantResult?
         sut.load { result in
             returnedResult = result
             exp.fulfill()
@@ -41,14 +41,14 @@ final class RemoteRestaurantLoaderTests: XCTestCase {
         
         wait(for: [exp], timeout: 1.0)
         
-        XCTAssertEqual(returnedResult, .connectivity)
+        XCTAssertEqual(returnedResult, .failure(.connectivity))
     }
     
     func test_load_and_returned_error_for_invalidData() throws {
         let (sut, client, _) = makeSUT()
         
         let exp = expectation(description: "esperando retorno da clousure")
-        var returnedResult: RemoteRestaurantLoader.Error?
+        var returnedResult: RemoteRestaurantLoader.RemoteRestaurantResult?
         sut.load { result in
             returnedResult = result
             exp.fulfill()
@@ -58,7 +58,24 @@ final class RemoteRestaurantLoaderTests: XCTestCase {
         
         wait(for: [exp], timeout: 1.0)
         
-        XCTAssertEqual(returnedResult, .invalidData)
+        XCTAssertEqual(returnedResult, .failure(.invalidData))
+    }
+    
+    func test_load_and_resturned_success_with_empty_list() {
+        let (sut, client, _) = makeSUT()
+        let exp = expectation(description: "esperando retorno da clousure")
+        var returnedResult: RemoteRestaurantLoader.RemoteRestaurantResult?
+        sut.load { result in
+            returnedResult = result
+            exp.fulfill()
+        }
+        
+        client.completionWithSuccess(data: emptyData())
+        
+        wait(for: [exp], timeout: 1.0)
+        
+        XCTAssertEqual(returnedResult, .success([]))
+        
     }
     
     private func makeSUT() -> (sut: RemoteRestaurantLoader, client: NetworkClientSpy, anyUrl: URL) {
@@ -68,14 +85,18 @@ final class RemoteRestaurantLoaderTests: XCTestCase {
         
         return (sut, client, anyURL)
     }
+    
+    private func emptyData() -> Data {
+        return Data("{ \"items\": [] }".utf8)
+    }
 }
 
 final class NetworkClientSpy: NetworkClient {
     
     private(set) var urlRequests: [URL] = []
-    private var completionHandler: ((NetworkState) -> Void)?
+    private var completionHandler: ((NetworkResult) -> Void)?
     
-    func request(from url: URL, completion: @escaping (NetworkState) -> Void) {
+    func request(from url: URL, completion: @escaping (NetworkResult) -> Void) {
         urlRequests.append(url)
         completionHandler = completion
     }
