@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		72147ED02994729E002027A7 /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72147ECF2994729E002027A7 /* NetworkClient.swift */; };
 		7299330429917C8B0009DE99 /* RestaurantDomain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 729932FB29917C8B0009DE99 /* RestaurantDomain.framework */; };
 		7299330929917C8B0009DE99 /* RemoteRestaurantLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7299330829917C8B0009DE99 /* RemoteRestaurantLoaderTests.swift */; };
 		7299330A29917C8B0009DE99 /* RestaurantDomain.h in Headers */ = {isa = PBXBuildFile; fileRef = 729932FE29917C8B0009DE99 /* RestaurantDomain.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -24,6 +25,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		72147ECF2994729E002027A7 /* NetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
+		72147ED1299472F9002027A7 /* NetworkClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NetworkClient.h; sourceTree = "<group>"; };
 		729932FB29917C8B0009DE99 /* RestaurantDomain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RestaurantDomain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		729932FE29917C8B0009DE99 /* RestaurantDomain.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RestaurantDomain.h; sourceTree = "<group>"; };
 		7299330329917C8B0009DE99 /* RestaurantDomainTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RestaurantDomainTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -50,6 +53,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		72147ECB299470D8002027A7 /* RemoteLoader */ = {
+			isa = PBXGroup;
+			children = (
+				7299330829917C8B0009DE99 /* RemoteRestaurantLoaderTests.swift */,
+			);
+			path = RemoteLoader;
+			sourceTree = "<group>";
+		};
+		72147ECE2994728A002027A7 /* NetworkClient */ = {
+			isa = PBXGroup;
+			children = (
+				72147ECF2994729E002027A7 /* NetworkClient.swift */,
+				72147ED1299472F9002027A7 /* NetworkClient.h */,
+			);
+			path = NetworkClient;
+			sourceTree = "<group>";
+		};
 		729932F129917C8B0009DE99 = {
 			isa = PBXGroup;
 			children = (
@@ -71,6 +91,7 @@
 		729932FD29917C8B0009DE99 /* RestaurantDomain */ = {
 			isa = PBXGroup;
 			children = (
+				72147ECE2994728A002027A7 /* NetworkClient */,
 				729932FE29917C8B0009DE99 /* RestaurantDomain.h */,
 				7299331329917FE20009DE99 /* RemoteRestaurantLoader.swift */,
 			);
@@ -80,7 +101,7 @@
 		7299330729917C8B0009DE99 /* RestaurantDomainTests */ = {
 			isa = PBXGroup;
 			children = (
-				7299330829917C8B0009DE99 /* RemoteRestaurantLoaderTests.swift */,
+				72147ECB299470D8002027A7 /* RemoteLoader */,
 			);
 			path = RestaurantDomainTests;
 			sourceTree = "<group>";
@@ -196,6 +217,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7299331429917FE20009DE99 /* RemoteRestaurantLoader.swift in Sources */,
+				72147ED02994729E002027A7 /* NetworkClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

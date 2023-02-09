@@ -16,6 +16,7 @@ protocol NetworkClient {
     func request(from url: URL, completion: @escaping (NetworkState) -> Void)
 }
 
+
 final class RemoteRestaurantLoader {
     
     let url: URL
