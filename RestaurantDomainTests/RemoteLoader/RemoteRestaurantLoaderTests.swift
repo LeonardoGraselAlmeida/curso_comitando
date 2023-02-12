@@ -124,11 +124,7 @@ final class RemoteRestaurantLoaderTests: XCTestCase {
         XCTAssertEqual(returnedResult, result)
     }
     
-    private func trackForMemoryLeaks(_ instance: AnyObject, file: StaticString = #file, line: UInt = #line) {
-        addTeardownBlock { [weak instance] in
-            XCTAssertNil(instance, "A Instancia deveteria ter sido desalocada, possível vazamento de memória.", file: file, line: line)
-        }
-    }
+
     
     private func emptyData() -> Data {
         return Data("{ \"items\": [] }".utf8)
