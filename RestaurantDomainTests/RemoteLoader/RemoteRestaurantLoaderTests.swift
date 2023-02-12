@@ -101,12 +101,58 @@ final class RemoteRestaurantLoaderTests: XCTestCase {
         XCTAssertEqual(returnedResult, .success([item1.model, item2.model]))
     }
     
-    private func makeSUT() -> (sut: RemoteRestaurantLoader, client: NetworkClientSpy, anyUrl: URL) {
+    func test_load_and_returned_error_for_invalid_statusCode() throws {
+        let (sut, client, _) = makeSUT()
+        
+        let exp = expectation(description: "esperando retorno da clousure")
+        var returnedResult: RemoteRestaurantLoader.RemoteRestaurantResult?
+        sut.load { result in
+            returnedResult = result
+            exp.fulfill()
+        }
+        
+        let item1 = makeRestaurantItem()
+        let item2 = makeRestaurantItem()
+        let jsonItem = ["items": [item1.json, item2.json]]
+        
+        let data = try XCTUnwrap(JSONSerialization.data(withJSONObject: jsonItem))
+        
+        client.completionWithSuccess( statusCode: 201, data: data)
+        
+        wait(for: [exp], timeout: 1.0)
+        
+        XCTAssertEqual(returnedResult, .failure(.invalidData))
+    }
+    
+    func test_load_not_returned_after_sut_deallocated() {
+        let anyURL = URL(string: "https://comitando.com.br")!
+        let client = NetworkClientSpy()
+        var sut: RemoteRestaurantLoader? = RemoteRestaurantLoader(url: anyURL, networkClient: client)
+        
+        var returnedResult: RemoteRestaurantLoader.RemoteRestaurantResult?
+        sut?.load { result in
+            returnedResult = result
+        }
+        
+        sut = nil
+        client.completionWithSuccess()
+        
+        XCTAssertNil(returnedResult)
+    }
+    
+    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: RemoteRestaurantLoader, client: NetworkClientSpy, anyUrl: URL) {
         let anyURL = URL(string: "http://comitando.com.br")!
         let client = NetworkClientSpy()
         let sut = RemoteRestaurantLoader(url: anyURL, networkClient: client )
-        
+        trackForMemoryLeaks(client, file: file, line: line)
+        trackForMemoryLeaks(sut, file: file, line: line)
         return (sut, client, anyURL)
+    }
+    
+    private func trackForMemoryLeaks(_ instance: AnyObject, file: StaticString = #file, line: UInt = #line) {
+        addTeardownBlock { [weak instance] in
+            XCTAssertNil(instance, "A Instancia deveteria ter sido desalocada, possível vazamento de memória.", file: file, line: line)
+        }
     }
     
     private func emptyData() -> Data {
