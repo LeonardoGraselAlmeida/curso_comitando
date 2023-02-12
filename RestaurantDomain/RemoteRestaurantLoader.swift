@@ -10,20 +10,6 @@ import Foundation
 struct RestaurantRoot: Decodable {
     let items: [RestaurantItem]
 }
-struct RestaurantItem: Decodable, Equatable {
-    let id: UUID
-    let name: String
-    let location: String
-    let distance: Float
-    let ratings: Int
-    let parasols: Int
-}
-
-protocol NetworkClient {
-    typealias NetworkResult = Result<(Data, HTTPURLResponse), Error>
-    func request(from url: URL, completion: @escaping (NetworkResult) -> Void)
-}
-
 
 final class RemoteRestaurantLoader {
     
