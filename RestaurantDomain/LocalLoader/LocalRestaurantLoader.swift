@@ -22,7 +22,7 @@ final class LocalRestaurantLoader {
         self.currentDate = currentDate
     }
     
-    func save(_ items: [RestaurantItem], timestamp: Date, completion: @escaping (Error?) -> Void) {
+    func save(_ items: [RestaurantItem], completion: @escaping (Error?) -> Void) {
         cache.delete { [unowned self] error in
             if error == nil {
                 self.cache.save(items, timestamp: self.currentDate(), completion: completion)
