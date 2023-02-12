@@ -13,6 +13,8 @@
 		723559A7299970CC0099B84C /* NetworkServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723559A6299970CC0099B84C /* NetworkServiceTests.swift */; };
 		723559A9299985250099B84C /* URLSessionSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723559A8299985250099B84C /* URLSessionSpy.swift */; };
 		723559AB299985580099B84C /* XCTestCase+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723559AA299985580099B84C /* XCTestCase+Helpers.swift */; };
+		723559B12999A6610099B84C /* LocalRestaurantLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723559B02999A6610099B84C /* LocalRestaurantLoader.swift */; };
+		723559B42999A6840099B84C /* LocalRestaurantLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723559B32999A6840099B84C /* LocalRestaurantLoaderTests.swift */; };
 		7299330429917C8B0009DE99 /* RestaurantDomain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 729932FB29917C8B0009DE99 /* RestaurantDomain.framework */; };
 		7299330929917C8B0009DE99 /* RemoteRestaurantLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7299330829917C8B0009DE99 /* RemoteRestaurantLoaderTests.swift */; };
 		7299330A29917C8B0009DE99 /* RestaurantDomain.h in Headers */ = {isa = PBXBuildFile; fileRef = 729932FE29917C8B0009DE99 /* RestaurantDomain.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -37,6 +39,8 @@
 		723559A6299970CC0099B84C /* NetworkServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceTests.swift; sourceTree = "<group>"; };
 		723559A8299985250099B84C /* URLSessionSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionSpy.swift; sourceTree = "<group>"; };
 		723559AA299985580099B84C /* XCTestCase+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Helpers.swift"; sourceTree = "<group>"; };
+		723559B02999A6610099B84C /* LocalRestaurantLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalRestaurantLoader.swift; sourceTree = "<group>"; };
+		723559B32999A6840099B84C /* LocalRestaurantLoaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalRestaurantLoaderTests.swift; sourceTree = "<group>"; };
 		729932FB29917C8B0009DE99 /* RestaurantDomain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RestaurantDomain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		729932FE29917C8B0009DE99 /* RestaurantDomain.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RestaurantDomain.h; sourceTree = "<group>"; };
 		7299330329917C8B0009DE99 /* RestaurantDomainTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RestaurantDomainTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -66,6 +70,7 @@
 		72147ECB299470D8002027A7 /* RemoteLoader */ = {
 			isa = PBXGroup;
 			children = (
+				723559A32999681F0099B84C /* NetworkClient */,
 				7299330829917C8B0009DE99 /* RemoteRestaurantLoaderTests.swift */,
 			);
 			path = RemoteLoader;
@@ -90,6 +95,39 @@
 			path = NetworkClient;
 			sourceTree = "<group>";
 		};
+		723559AC2999A5F70099B84C /* RemoteLoader */ = {
+			isa = PBXGroup;
+			children = (
+				72147ECE2994728A002027A7 /* NetworkClient */,
+				7299331329917FE20009DE99 /* RemoteRestaurantLoader.swift */,
+			);
+			path = RemoteLoader;
+			sourceTree = "<group>";
+		};
+		723559AE2999A6470099B84C /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				723559AA299985580099B84C /* XCTestCase+Helpers.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		723559AF2999A6520099B84C /* LocalLoader */ = {
+			isa = PBXGroup;
+			children = (
+				723559B02999A6610099B84C /* LocalRestaurantLoader.swift */,
+			);
+			path = LocalLoader;
+			sourceTree = "<group>";
+		};
+		723559B22999A66C0099B84C /* LocalLoader */ = {
+			isa = PBXGroup;
+			children = (
+				723559B32999A6840099B84C /* LocalRestaurantLoaderTests.swift */,
+			);
+			path = LocalLoader;
+			sourceTree = "<group>";
+		};
 		729932F129917C8B0009DE99 = {
 			isa = PBXGroup;
 			children = (
@@ -111,9 +149,9 @@
 		729932FD29917C8B0009DE99 /* RestaurantDomain */ = {
 			isa = PBXGroup;
 			children = (
-				72147ECE2994728A002027A7 /* NetworkClient */,
+				723559AF2999A6520099B84C /* LocalLoader */,
+				723559AC2999A5F70099B84C /* RemoteLoader */,
 				729932FE29917C8B0009DE99 /* RestaurantDomain.h */,
-				7299331329917FE20009DE99 /* RemoteRestaurantLoader.swift */,
 				723559A1299967F90099B84C /* RestaurantItem.swift */,
 			);
 			path = RestaurantDomain;
@@ -122,9 +160,9 @@
 		7299330729917C8B0009DE99 /* RestaurantDomainTests */ = {
 			isa = PBXGroup;
 			children = (
-				723559A32999681F0099B84C /* NetworkClient */,
+				723559AE2999A6470099B84C /* Helpers */,
+				723559B22999A66C0099B84C /* LocalLoader */,
 				72147ECB299470D8002027A7 /* RemoteLoader */,
-				723559AA299985580099B84C /* XCTestCase+Helpers.swift */,
 			);
 			path = RestaurantDomainTests;
 			sourceTree = "<group>";
@@ -240,6 +278,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7299331429917FE20009DE99 /* RemoteRestaurantLoader.swift in Sources */,
+				723559B12999A6610099B84C /* LocalRestaurantLoader.swift in Sources */,
 				723559A2299967F90099B84C /* RestaurantItem.swift in Sources */,
 				72147ED02994729E002027A7 /* NetworkClient.swift in Sources */,
 			);
@@ -251,6 +290,7 @@
 			files = (
 				723559AB299985580099B84C /* XCTestCase+Helpers.swift in Sources */,
 				723559A5299968300099B84C /* NetworkClientSpy.swift in Sources */,
+				723559B42999A6840099B84C /* LocalRestaurantLoaderTests.swift in Sources */,
 				723559A9299985250099B84C /* URLSessionSpy.swift in Sources */,
 				723559A7299970CC0099B84C /* NetworkServiceTests.swift in Sources */,
 				7299330929917C8B0009DE99 /* RemoteRestaurantLoaderTests.swift in Sources */,

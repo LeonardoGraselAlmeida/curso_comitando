@@ -43,6 +43,5 @@ final class URLSessionDataTaskSpy: URLSessionDataTask {
 }
 
 final class FakeURLSessionDataTask: URLSessionDataTask {
-    override func resume() {
-    }
+    override func resume() {}
 }
