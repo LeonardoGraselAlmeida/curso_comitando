@@ -67,10 +67,33 @@ final class LocalRestaurantLoaderTests: XCTestCase {
         let items: [RestaurantItem] = [makeItem()]
         var sut: LocalRestaurantLoader? = LocalRestaurantLoader(cache: cache, currentDate: {currentDate})
         
-        sut?.save(items) { _ in }
+        var returnedError: Error?
+        sut?.save(items) { error in
+            returnedError = error
+        }
         sut = nil
         
         cache.completionHandlerForDelete(nil)
+        
+        XCTAssertNil(returnedError)
+    }
+    
+    func test_save_non_completion_after_sut_deallocated() {
+        let currentDate = Date()
+        let cache = CacheClientSpy()
+        let items: [RestaurantItem] = [makeItem()]
+        var sut: LocalRestaurantLoader? = LocalRestaurantLoader(cache: cache, currentDate: {currentDate})
+        
+        var returnedError: Error?
+        sut?.save(items) { error in
+            returnedError = error
+        }
+        
+        cache.completionHandlerForDelete(nil)
+        sut = nil
+        cache.completionHandlerForInsert(nil)
+        
+        XCTAssertNil(returnedError)
     }
     
     private func makeSUT(currentDate: Date = Date(), file: StaticString = #filePath, line: UInt = #line) -> (sut: LocalRestaurantLoader, cache: CacheClientSpy) {
