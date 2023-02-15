@@ -11,18 +11,18 @@ struct RestaurantRoot: Decodable {
     let items: [RestaurantItem]
 }
 
-final class RemoteRestaurantLoader {
+public final class RemoteRestaurantLoader {
     
     let url: URL
     let networkClient: NetworkClient
     private let okResponse: Int = 200
     
-    enum Error: Swift.Error {
+    public enum Error: Swift.Error {
         case connectivity
         case invalidData
     }
     
-    init(url: URL, networkClient: NetworkClient) {
+    public init(url: URL, networkClient: NetworkClient) {
         self.url = url
         self.networkClient = networkClient
     }
@@ -35,9 +35,9 @@ final class RemoteRestaurantLoader {
         return .success(json.items)
     }
     
-    typealias RemoteRestaurantResult = Result<[RestaurantItem], Error>
+    public typealias RemoteRestaurantResult = Result<[RestaurantItem], Error>
     
-    func load(completion: @escaping (RemoteRestaurantLoader.RemoteRestaurantResult) -> Void) {
+    public func load(completion: @escaping (RemoteRestaurantLoader.RemoteRestaurantResult) -> Void) {
         networkClient.request(from: url) { [weak self] result in
             guard let self else { return }
             switch(result) {
