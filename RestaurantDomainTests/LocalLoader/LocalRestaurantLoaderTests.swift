@@ -8,7 +8,7 @@
 import XCTest
 @testable import RestaurantDomain
 
-final class LocalRestaurantLoaderTests: XCTestCase {
+final class LocalRestaurantLoaderForSaveCommandTests: XCTestCase {
     
     func test_save_deletes_old_cache() {
         let (sut, cache) = makeSUT()
@@ -139,6 +139,8 @@ final class CacheClientSpy: CacheClient {
     }
     
     private(set) var methodsCalled = [Methods]()
+    
+    func load(completion: @escaping LoadResult) {}
     
     func save(_ items: [RestaurantDomain.RestaurantItem], timestamp: Date, completion: CacheClient.SaveResult) {
         methodsCalled.append(.save(items: items, timestamp: timestamp))
