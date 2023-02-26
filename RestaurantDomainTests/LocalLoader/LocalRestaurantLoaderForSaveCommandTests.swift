@@ -22,9 +22,9 @@ final class LocalRestaurantLoaderForSaveCommandTests: XCTestCase {
     func test_save_insert_new_data_on_cache() {
         let currentDate = Date()
         let (sut, cache) = makeSUT(currentDate: currentDate)
-        let items: [RestaurantItem] = [makeItem()]
+        let items = [makeItem()]
         
-        sut.save(items) {_ in }
+        sut.save(items) { _ in }
         cache.completionHandlerForDelete(nil)
         
         XCTAssertEqual(cache.methodsCalled, [.delete, .save(items: items, timestamp: currentDate)])

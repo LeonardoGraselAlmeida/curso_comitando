@@ -28,20 +28,16 @@ class LocalRestaurantLoaderForLoadCommandTests: XCTestCase {
     func test_load_returned_completion_success_with_empty_data() {
         let (sut, cache) = makeSUT()
         
-        var returnResult: RestaurantLoader.RemoteRestaurantResult?
-        sut.load { result in
-            returnResult = result
+        assert(sut, completion: .success([])) {
+            cache.completionHandlerForLoad(nil)
         }
         
-        cache.completionHandlerForLoad(nil)
-        
         XCTAssertEqual(cache.methodsCalled, [.load])
-        XCTAssertEqual(returnResult, .success([]))
     }
     
     private func makeSUT(currentDate: Date = Date(),
                          file: StaticString = #filePath,
-                          line: UInt = #line) -> (sut: LocalRestaurantLoader, cache: CacheClientSpy) {
+                         line: UInt = #line) -> (sut: LocalRestaurantLoader, cache: CacheClientSpy) {
         let currentDate = Date()
         let cache = CacheClientSpy()
         let sut = LocalRestaurantLoader(cache: cache, currentDate: {currentDate})
@@ -54,6 +50,23 @@ class LocalRestaurantLoaderForLoadCommandTests: XCTestCase {
     
     private func makeItem() -> RestaurantItem {
         return RestaurantItem(id: UUID(), name: "name", location: "location", distance: 5.5, ratings: 0, parasols: 0)
+    }
+    
+    private func assert(
+        _ sut: LocalRestaurantLoader,
+        completion result: RestaurantLoader.RemoteRestaurantResult?,
+        when action: () -> Void,
+        file: StaticString = #filePath,
+        line: UInt = #line
+    ) {
+        var returnResult: RestaurantLoader.RemoteRestaurantResult?
+        sut.load { result in
+            returnResult = result
+        }
+        
+        action()
+        
+        XCTAssertEqual(returnResult, result)
     }
 }
 
