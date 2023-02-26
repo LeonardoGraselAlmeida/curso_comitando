@@ -31,7 +31,7 @@ final class CacheClientSpy: CacheClient {
         completionHandlerDelete = completion
     }
     
-    private var completionHandlerLoad: ((Error?) -> Void)?
+    private var completionHandlerLoad: (LoadResult)?
     func load(completion: @escaping LoadResult) {
         methodsCalled.append(.load)
         completionHandlerLoad = completion
@@ -45,7 +45,7 @@ final class CacheClientSpy: CacheClient {
         completionHandlerInsert?(error)
     }
     
-    func completionHandlerForLoad(_ error: Error?) {
-        completionHandlerLoad?(error)
+    func completionHandlerForLoad(_ state: LoadResultState) {
+        completionHandlerLoad?(state)
     }
 }
