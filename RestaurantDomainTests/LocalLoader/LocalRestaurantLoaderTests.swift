@@ -130,33 +130,3 @@ final class LocalRestaurantLoaderForSaveCommandTests: XCTestCase {
         XCTAssertEqual(returnedError as? NSError, error)
     }
 }
-
-final class CacheClientSpy: CacheClient {
-    
-    enum Methods: Equatable {
-        case delete
-        case save(items: [RestaurantItem], timestamp: Date)
-    }
-    
-    private(set) var methodsCalled = [Methods]()
-    
-    func load(completion: @escaping LoadResult) {}
-    
-    func save(_ items: [RestaurantDomain.RestaurantItem], timestamp: Date, completion: CacheClient.SaveResult) {
-        methodsCalled.append(.save(items: items, timestamp: timestamp))
-    }
-    
-    private var completionHandler: ((Error?) -> Void)?
-    func delete(completion: @escaping CacheClient.DeleteResult) {
-        methodsCalled.append(.delete)
-        completionHandler = completion
-    }
-    
-    func completionHandlerForDelete(_ error: Error?) {
-        completionHandler?(error)
-    }
-    
-    func completionHandlerForInsert(_ error: Error?) {
-        completionHandler?(error)
-    }
-}
