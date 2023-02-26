@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		72147ED02994729E002027A7 /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72147ECF2994729E002027A7 /* NetworkClient.swift */; };
+		722A8F1E29ABF9090022B40B /* RestaurantLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722A8F1D29ABF9090022B40B /* RestaurantLoader.swift */; };
 		723559A2299967F90099B84C /* RestaurantItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723559A1299967F90099B84C /* RestaurantItem.swift */; };
 		723559A5299968300099B84C /* NetworkClientSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723559A4299968300099B84C /* NetworkClientSpy.swift */; };
 		723559A7299970CC0099B84C /* NetworkServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723559A6299970CC0099B84C /* NetworkServiceTests.swift */; };
@@ -34,6 +35,7 @@
 /* Begin PBXFileReference section */
 		72147ECF2994729E002027A7 /* NetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
 		72147ED1299472F9002027A7 /* NetworkClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NetworkClient.h; sourceTree = "<group>"; };
+		722A8F1D29ABF9090022B40B /* RestaurantLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantLoader.swift; sourceTree = "<group>"; };
 		723559A1299967F90099B84C /* RestaurantItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantItem.swift; sourceTree = "<group>"; };
 		723559A4299968300099B84C /* NetworkClientSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClientSpy.swift; sourceTree = "<group>"; };
 		723559A6299970CC0099B84C /* NetworkServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceTests.swift; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 				723559AC2999A5F70099B84C /* RemoteLoader */,
 				729932FE29917C8B0009DE99 /* RestaurantDomain.h */,
 				723559A1299967F90099B84C /* RestaurantItem.swift */,
+				722A8F1D29ABF9090022B40B /* RestaurantLoader.swift */,
 			);
 			path = RestaurantDomain;
 			sourceTree = "<group>";
@@ -277,6 +280,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				722A8F1E29ABF9090022B40B /* RestaurantLoader.swift in Sources */,
 				7299331429917FE20009DE99 /* RemoteRestaurantLoader.swift in Sources */,
 				723559B12999A6610099B84C /* LocalRestaurantLoader.swift in Sources */,
 				723559A2299967F90099B84C /* RestaurantItem.swift in Sources */,

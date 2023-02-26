@@ -105,13 +105,13 @@ final class RemoteRestaurantLoaderTests: XCTestCase {
     
     private func assert(
         _ sut: RemoteRestaurantLoader,
-        completion result: RemoteRestaurantLoader.RemoteRestaurantResult,
+        completion result: RestaurantLoader.RemoteRestaurantResult,
         when action: () -> Void,
         file: StaticString = #filePath,
         line: UInt = #line
     ) {
         let exp = expectation(description: "esperando retorno da clousure")
-        var returnedResult: RemoteRestaurantLoader.RemoteRestaurantResult?
+        var returnedResult: RestaurantLoader.RemoteRestaurantResult?
         sut.load { result in
             returnedResult = result
             exp.fulfill()

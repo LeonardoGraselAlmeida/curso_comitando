@@ -46,7 +46,6 @@ final class NetworkServiceTests: XCTestCase {
     
     func test_loadRequest_and_completion_with_success_for_validCases() {
         let url = URL(string: "https://comitando.com.br")!
-        let anyError = NSError(domain: "any error", code: -1)
         let data = Data()
         let okResponse = 200
         let httpResponse = HTTPURLResponse(url: url, statusCode: okResponse, httpVersion: nil, headerFields: nil)!
@@ -129,6 +128,8 @@ final class NetworkServiceTests: XCTestCase {
         
         return returnedResult
     }
+    
+    
 }
 
 
