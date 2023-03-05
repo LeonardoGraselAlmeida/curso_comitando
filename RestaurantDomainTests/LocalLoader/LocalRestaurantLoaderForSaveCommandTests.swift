@@ -21,7 +21,7 @@ final class LocalRestaurantLoaderForSaveCommandTests: XCTestCase {
     
     func test_save_insert_new_data_on_cache() {
         let currentDate = Date()
-        let (sut, cache) = makeSUT(currentDate: currentDate)
+        let (sut, cache) = makeSUT()
         let items = [makeItem()]
         
         sut.save(items) { _ in }
