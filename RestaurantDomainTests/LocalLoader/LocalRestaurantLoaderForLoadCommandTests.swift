@@ -26,14 +26,39 @@ class LocalRestaurantLoaderForLoadCommandTests: XCTestCase {
     }
     
     func test_load_returned_completion_success_with_empty_data() {
+        let currentDate = Date()
+        let (sut, cache) = makeSUT(currentDate: currentDate)
+        let items = [makeItem()]
+        
+        assert(sut, completion: .success(items)) {
+            cache.completionHandlerForLoad(.success(items: items, timestamp: currentDate))
+        }
+    }
+    
+    func test_load_returned_data_with_one_day_less_than_old_cache() {
+        let currentDate = Date()
+        let oneDayLessThanOldCacheDate = currentDate.adding(days: -1).adding(seconds: 1)
         let (sut, cache) = makeSUT()
+        let items = [makeItem()]
+        
+        assert(sut, completion: .success(items)) {
+            cache.completionHandlerForLoad(.success(items: items, timestamp: oneDayLessThanOldCacheDate))
+        }
+    }
+    
+    func test_load_returned_data_with_one_day_old_cache() {
+        let currentDate = Date()
+        let oneDayOldCacheDate = currentDate.adding(days: -1)
+        let (sut, cache) = makeSUT()
+        let items = [makeItem()]
         
         assert(sut, completion: .success([])) {
-            cache.completionHandlerForLoad(.empty)
+            cache.completionHandlerForLoad(.success(items: items, timestamp: oneDayOldCacheDate))
         }
         
         XCTAssertEqual(cache.methodsCalled, [.load])
     }
+
     
     private func makeSUT(currentDate: Date = Date(),
                          file: StaticString = #filePath,

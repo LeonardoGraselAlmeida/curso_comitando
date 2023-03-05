@@ -53,11 +53,22 @@ public final class LocalRestaurantLoader {
 }
 
 extension LocalRestaurantLoader: RestaurantLoader {
+    
+    private func validate(_ timestamp: Date) -> Bool {
+        let calendar = Calendar(identifier: .gregorian)
+        guard let maxAge = calendar.date(byAdding: .day, value: 1, to: timestamp) else {
+            return false
+        }
+        return currentDate() < maxAge
+    }
+    
+    
     public func load(completion: @escaping (RemoteRestaurantResult) -> Void) {
-        cache.load { state in
+        cache.load { [weak self] state in
+            guard let self else { return }
             switch state {
-            case .empty: completion(.success([]))
-            case let .success(items, _): completion(.success(items))
+            case let .success(items, timestamp) where self.validate(timestamp): completion(.success(items))
+            case .success, .empty: completion(.success([]))
             case .failure: completion(.failure(.invalidData))
             }
         }
