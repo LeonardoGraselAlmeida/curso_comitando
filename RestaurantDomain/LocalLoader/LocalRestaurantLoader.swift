@@ -25,12 +25,16 @@ public protocol CacheClient {
 
 public final class LocalRestaurantLoader {
     
-    let cache: CacheClient
-    let currentDate: () -> Date
+    private let cache: CacheClient
+    private let cachePolicy: CachePolicy
+    private let currentDate: () -> Date
     
-    public init(cache: CacheClient, currentDate: @escaping () -> Date) {
+    public init(cache: CacheClient,
+                cachePolicy: CachePolicy = RestaurantLoaderCachePolicy(),
+                currentDate: @escaping () -> Date) {
         self.cache = cache
         self.currentDate = currentDate
+        self.cachePolicy = cachePolicy
     }
     
     public func save(_ items: [RestaurantItem], completion: @escaping (Error?) -> Void) {
@@ -55,7 +59,7 @@ public final class LocalRestaurantLoader {
         cache.load { [weak self] state in
             guard let self else { return }
             switch state {
-            case let .success(_, timestamp) where !self.validate(timestamp):
+            case let .success(_, timestamp) where !self.cachePolicy.validate(timestamp, with: self.currentDate()):
                 self.cache.delete {_ in }
             case .failure:
                 self.cache.delete {_ in }
@@ -67,20 +71,11 @@ public final class LocalRestaurantLoader {
 
 extension LocalRestaurantLoader: RestaurantLoader {
     
-    private func validate(_ timestamp: Date) -> Bool {
-        let calendar = Calendar(identifier: .gregorian)
-        guard let maxAge = calendar.date(byAdding: .day, value: 1, to: timestamp) else {
-            return false
-        }
-        return currentDate() < maxAge
-    }
-    
-    
     public func load(completion: @escaping (RemoteRestaurantResult) -> Void) {
         cache.load { [weak self] state in
             guard let self else { return }
             switch state {
-            case let .success(items, timestamp) where self.validate(timestamp):
+            case let .success(items, timestamp) where self.cachePolicy.validate(timestamp, with: self.currentDate()):
                 completion(.success(items))
             case .success, .empty:
                 completion(.success([]))
@@ -88,5 +83,25 @@ extension LocalRestaurantLoader: RestaurantLoader {
                 completion(.failure(.invalidData))
             }
         }
+    }
+}
+
+public protocol CachePolicy {
+    func validate(_ timestamp: Date, with currentDate: Date) -> Bool
+    
+}
+
+public final class RestaurantLoaderCachePolicy: CachePolicy {
+    
+    private let maxAge: Int = 1
+    
+    public init() {}
+    
+    public func validate(_ timestamp: Date, with currentDate: Date) -> Bool {
+        let calendar = Calendar(identifier: .gregorian)
+        guard let maxAge = calendar.date(byAdding: .day, value: maxAge, to: timestamp) else {
+            return false
+        }
+        return currentDate < maxAge
     }
 }
