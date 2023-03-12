@@ -11,20 +11,18 @@ import XCTest
 final class CacheServiceTests: XCTestCase {
     
     func test_save_and_returned_last_entered_value() {
-        let path = type(of: self)
-        let managerURL: URL = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first!.appending(path: "\(path)")
-        let sut = CacheService(managerURL: managerURL)
+        let sut = makeSUT()
+        
         let items = [RestaurantItem.makeItem(), RestaurantItem.makeItem()]
         let timestamp = Date()
         
-        let returnedError = insert(sut, items: items, timestamp: timestamp)
-        XCTAssertNil(returnedError)
+        insert(sut, items: items, timestamp: timestamp)
+        assert(sut, completion: .success(items: items, timestamp: timestamp))
     }
     
     func test_save_twice_and_returned_last_entered_value() {
-        let path = type(of: self)
-        let managerURL: URL = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first!.appending(path: "\(path)")
-        let sut = CacheService(managerURL: managerURL)
+        let sut = makeSUT()
+        
         let firstTimeItems = [RestaurantItem.makeItem(), RestaurantItem.makeItem()]
         let firstTimeTimestamp = Date()
         
@@ -36,6 +34,31 @@ final class CacheServiceTests: XCTestCase {
         insert(sut, items: secondTimeItems, timestamp: secondTimeTimestamp)
         
         assert(sut, completion: .success(items: secondTimeItems, timestamp: secondTimeTimestamp))
+    }
+    
+    func test_save_returned_error_when_invalid_manager_url() {
+        let invalidURL = invalidManagerURL()
+        let sut = makeSUT(managerURL: invalidURL)
+        
+        let items = [RestaurantItem.makeItem(), RestaurantItem.makeItem()]
+        let timestamp = Date()
+        
+        let returnedError = insert(sut, items: items, timestamp: timestamp)
+        
+        XCTAssertNotNil(returnedError)
+    }
+    
+    private func makeSUT(managerURL: URL? = nil) -> CacheClientProtocol {
+        return CacheService(managerURL: managerURL ?? validManagerURL())
+    }
+    
+    private func validManagerURL() -> URL {
+        let path = type(of: self)
+        return FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first!.appending(path: "\(path)")
+    }
+    
+    private func invalidManagerURL() -> URL {
+        return FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first!
     }
     
     @discardableResult
