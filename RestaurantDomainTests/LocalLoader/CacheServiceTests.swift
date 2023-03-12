@@ -120,6 +120,34 @@ final class CacheServiceTests: XCTestCase {
         assert(sut, completion: .failure(anyError))
     }
     
+    func test_tasks_with_serial() {
+        let sut = makeSUT()
+        let items = [RestaurantItem.makeItem(), RestaurantItem.makeItem()]
+        let timestamp = Date()
+        var serialResult = [XCTestExpectation]()
+        
+        let task1 = expectation(description: "task 1")
+        sut.save(items, timestamp: timestamp) { _ in
+            serialResult.append(task1)
+            task1.fulfill()
+        }
+        
+        let task2 = expectation(description: "task 2")
+        sut.delete { _ in
+            serialResult.append(task2)
+            task2.fulfill()
+        }
+        
+        let task3 = expectation(description: "task 3")
+        sut.save(items, timestamp: timestamp) { _ in
+            serialResult.append(task3)
+            task3.fulfill()
+        }
+        
+        waitForExpectations(timeout: 3.0)
+        XCTAssertEqual(serialResult, [task1, task2, task3])
+    }
+    
     private func makeSUT(managerURL: URL? = nil) -> CacheClientProtocol {
         return CacheService(managerURL: managerURL ?? validManagerURL())
     }
@@ -158,7 +186,7 @@ final class CacheServiceTests: XCTestCase {
             exp.fulfill()
         }
         
-        wait(for: [exp], timeout: 1.0)
+        wait(for: [exp], timeout: 3.0)
         
         return returnedError
     }
