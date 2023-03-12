@@ -1,5 +1,5 @@
 //
-//  RestaurantLoader.swift
+//  RestaurantLoaderProtocol.swift
 //  RestaurantDomain
 //
 //  Created by Leonardo Almeida on 26/02/23.
@@ -12,7 +12,7 @@ public enum RestaurantResultError: Error {
     case invalidData
 }
 
-public protocol RestaurantLoader {
+public protocol RestaurantLoaderProtocol {
     typealias RemoteRestaurantResult = Result<[RestaurantItem], RestaurantResultError>
     func load(completion: @escaping (RemoteRestaurantResult) -> Void)
 }

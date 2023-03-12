@@ -13,7 +13,7 @@ public enum LoadResultState {
     case failure(Error)
 }
 
-public protocol CacheClient {
+public protocol CacheClientProtocol {
     typealias SaveResult = (Error?) -> Void
     typealias DeleteResult = (Error?) -> Void
     typealias LoadResult = (LoadResultState) -> Void

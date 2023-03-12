@@ -9,12 +9,12 @@ import Foundation
 
 public final class LocalRestaurantLoader {
     
-    private let cache: CacheClient
-    private let cachePolicy: CachePolicy
+    private let cache: CacheClientProtocol
+    private let cachePolicy: CachePolicyProtocol
     private let currentDate: () -> Date
     
-    public init(cache: CacheClient,
-                cachePolicy: CachePolicy = RestaurantLoaderCachePolicy(),
+    public init(cache: CacheClientProtocol,
+                cachePolicy: CachePolicyProtocol = RestaurantLoaderCachePolicy(),
                 currentDate: @escaping () -> Date) {
         self.cache = cache
         self.currentDate = currentDate
@@ -53,7 +53,7 @@ public final class LocalRestaurantLoader {
     }
 }
 
-extension LocalRestaurantLoader: RestaurantLoader {
+extension LocalRestaurantLoader: RestaurantLoaderProtocol {
     
     public func load(completion: @escaping (RemoteRestaurantResult) -> Void) {
         cache.load { [weak self] state in

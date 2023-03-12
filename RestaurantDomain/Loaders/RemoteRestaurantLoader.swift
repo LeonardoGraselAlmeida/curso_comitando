@@ -11,7 +11,7 @@ struct RestaurantRoot: Decodable {
     let items: [RestaurantItem]
 }
 
-public final class RemoteRestaurantLoader: RestaurantLoader {
+public final class RemoteRestaurantLoader: RestaurantLoaderProtocol {
     
     let url: URL
     let networkClient: NetworkClient
@@ -22,7 +22,7 @@ public final class RemoteRestaurantLoader: RestaurantLoader {
         self.networkClient = networkClient
     }
     
-    private func successFullyValidation(_ data: Data, response: HTTPURLResponse) -> RestaurantLoader.RemoteRestaurantResult {
+    private func successFullyValidation(_ data: Data, response: HTTPURLResponse) -> RestaurantLoaderProtocol.RemoteRestaurantResult {
         guard let json = try? JSONDecoder().decode(RestaurantRoot.self, from: data), response.statusCode == okResponse else {
             return .failure(.invalidData)
         }
@@ -30,7 +30,7 @@ public final class RemoteRestaurantLoader: RestaurantLoader {
         return .success(json.items)
     }
     
-    public func load(completion: @escaping (RestaurantLoader.RemoteRestaurantResult) -> Void) {
+    public func load(completion: @escaping (RestaurantLoaderProtocol.RemoteRestaurantResult) -> Void) {
         networkClient.request(from: url) { [weak self] result in
             guard let self else { return }
             switch(result) {

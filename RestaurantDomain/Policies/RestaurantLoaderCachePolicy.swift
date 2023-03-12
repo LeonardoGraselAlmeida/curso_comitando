@@ -7,7 +7,7 @@
 
 import Foundation
 
-public final class RestaurantLoaderCachePolicy: CachePolicy {
+public final class RestaurantLoaderCachePolicy: CachePolicyProtocol {
     
     private let maxAge: Int = 1
     

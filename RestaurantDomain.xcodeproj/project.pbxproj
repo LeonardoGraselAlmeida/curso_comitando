@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		72147ED02994729E002027A7 /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72147ECF2994729E002027A7 /* NetworkClient.swift */; };
-		722A8F1E29ABF9090022B40B /* RestaurantLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722A8F1D29ABF9090022B40B /* RestaurantLoader.swift */; };
+		722A8F1E29ABF9090022B40B /* RestaurantLoaderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722A8F1D29ABF9090022B40B /* RestaurantLoaderProtocol.swift */; };
 		722A8F2029ABFD1F0022B40B /* LocalRestaurantLoaderForLoadCommandTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722A8F1F29ABFD1F0022B40B /* LocalRestaurantLoaderForLoadCommandTests.swift */; };
 		722A8F2229ABFE6C0022B40B /* CacheClientSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722A8F2129ABFE6C0022B40B /* CacheClientSpy.swift */; };
 		723559A2299967F90099B84C /* RestaurantItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723559A1299967F90099B84C /* RestaurantItem.swift */; };
@@ -25,9 +25,10 @@
 		72BA9A8529B4E793004F8E63 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72BA9A8429B4E793004F8E63 /* Date+Extension.swift */; };
 		72BA9A8729B4F05C004F8E63 /* LocalRestaurantLoaderForValidateCommandTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72BA9A8629B4F05C004F8E63 /* LocalRestaurantLoaderForValidateCommandTests.swift */; };
 		72BA9A8A29B4F136004F8E63 /* RestaurantItem+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72BA9A8929B4F136004F8E63 /* RestaurantItem+Extension.swift */; };
-		72BA9A8C29B4F77E004F8E63 /* CachePolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72BA9A8B29B4F77E004F8E63 /* CachePolicy.swift */; };
+		72BA9A8C29B4F77E004F8E63 /* CachePolicyProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72BA9A8B29B4F77E004F8E63 /* CachePolicyProtocol.swift */; };
 		72BA9A8E29B4F798004F8E63 /* RestaurantLoaderCachePolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72BA9A8D29B4F798004F8E63 /* RestaurantLoaderCachePolicy.swift */; };
-		72BA9A9129B4F846004F8E63 /* CacheClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72BA9A9029B4F846004F8E63 /* CacheClient.swift */; };
+		72BA9A9129B4F846004F8E63 /* CacheClientProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72BA9A9029B4F846004F8E63 /* CacheClientProtocol.swift */; };
+		72BA9A9629B53AFD004F8E63 /* CacheClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72BA9A9529B53AFD004F8E63 /* CacheClient.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,8 +43,7 @@
 
 /* Begin PBXFileReference section */
 		72147ECF2994729E002027A7 /* NetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
-		72147ED1299472F9002027A7 /* NetworkClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NetworkClient.h; sourceTree = "<group>"; };
-		722A8F1D29ABF9090022B40B /* RestaurantLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantLoader.swift; sourceTree = "<group>"; };
+		722A8F1D29ABF9090022B40B /* RestaurantLoaderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantLoaderProtocol.swift; sourceTree = "<group>"; };
 		722A8F1F29ABFD1F0022B40B /* LocalRestaurantLoaderForLoadCommandTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalRestaurantLoaderForLoadCommandTests.swift; sourceTree = "<group>"; };
 		722A8F2129ABFE6C0022B40B /* CacheClientSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheClientSpy.swift; sourceTree = "<group>"; };
 		723559A1299967F90099B84C /* RestaurantItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantItem.swift; sourceTree = "<group>"; };
@@ -61,9 +61,10 @@
 		72BA9A8429B4E793004F8E63 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		72BA9A8629B4F05C004F8E63 /* LocalRestaurantLoaderForValidateCommandTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalRestaurantLoaderForValidateCommandTests.swift; sourceTree = "<group>"; };
 		72BA9A8929B4F136004F8E63 /* RestaurantItem+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RestaurantItem+Extension.swift"; sourceTree = "<group>"; };
-		72BA9A8B29B4F77E004F8E63 /* CachePolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachePolicy.swift; sourceTree = "<group>"; };
+		72BA9A8B29B4F77E004F8E63 /* CachePolicyProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachePolicyProtocol.swift; sourceTree = "<group>"; };
 		72BA9A8D29B4F798004F8E63 /* RestaurantLoaderCachePolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantLoaderCachePolicy.swift; sourceTree = "<group>"; };
-		72BA9A9029B4F846004F8E63 /* CacheClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheClient.swift; sourceTree = "<group>"; };
+		72BA9A9029B4F846004F8E63 /* CacheClientProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheClientProtocol.swift; sourceTree = "<group>"; };
+		72BA9A9529B53AFD004F8E63 /* CacheClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheClient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,15 +95,6 @@
 			path = RemoteLoader;
 			sourceTree = "<group>";
 		};
-		72147ECE2994728A002027A7 /* NetworkClient */ = {
-			isa = PBXGroup;
-			children = (
-				72147ECF2994729E002027A7 /* NetworkClient.swift */,
-				72147ED1299472F9002027A7 /* NetworkClient.h */,
-			);
-			path = NetworkClient;
-			sourceTree = "<group>";
-		};
 		723559A32999681F0099B84C /* NetworkClient */ = {
 			isa = PBXGroup;
 			children = (
@@ -113,30 +105,12 @@
 			path = NetworkClient;
 			sourceTree = "<group>";
 		};
-		723559AC2999A5F70099B84C /* RemoteLoader */ = {
-			isa = PBXGroup;
-			children = (
-				72147ECE2994728A002027A7 /* NetworkClient */,
-				7299331329917FE20009DE99 /* RemoteRestaurantLoader.swift */,
-			);
-			path = RemoteLoader;
-			sourceTree = "<group>";
-		};
 		723559AE2999A6470099B84C /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
 				723559AA299985580099B84C /* XCTestCase+Helpers.swift */,
 			);
 			path = Helpers;
-			sourceTree = "<group>";
-		};
-		723559AF2999A6520099B84C /* LocalLoader */ = {
-			isa = PBXGroup;
-			children = (
-				72BA9A8F29B4F7F4004F8E63 /* Cache */,
-				723559B02999A6610099B84C /* LocalRestaurantLoader.swift */,
-			);
-			path = LocalLoader;
 			sourceTree = "<group>";
 		};
 		723559B22999A66C0099B84C /* LocalLoader */ = {
@@ -171,11 +145,12 @@
 		729932FD29917C8B0009DE99 /* RestaurantDomain */ = {
 			isa = PBXGroup;
 			children = (
-				723559AF2999A6520099B84C /* LocalLoader */,
-				723559AC2999A5F70099B84C /* RemoteLoader */,
+				72BA9A9429B53A85004F8E63 /* Clients */,
+				72BA9A9729B53B71004F8E63 /* Loaders */,
+				72BA9A9229B52DC0004F8E63 /* Models */,
+				72BA9A8F29B4F7F4004F8E63 /* Policies */,
+				72BA9A9329B52E5F004F8E63 /* Protocols */,
 				729932FE29917C8B0009DE99 /* RestaurantDomain.h */,
-				723559A1299967F90099B84C /* RestaurantItem.swift */,
-				722A8F1D29ABF9090022B40B /* RestaurantLoader.swift */,
 			);
 			path = RestaurantDomain;
 			sourceTree = "<group>";
@@ -200,14 +175,48 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		72BA9A8F29B4F7F4004F8E63 /* Cache */ = {
+		72BA9A8F29B4F7F4004F8E63 /* Policies */ = {
 			isa = PBXGroup;
 			children = (
-				72BA9A9029B4F846004F8E63 /* CacheClient.swift */,
-				72BA9A8B29B4F77E004F8E63 /* CachePolicy.swift */,
 				72BA9A8D29B4F798004F8E63 /* RestaurantLoaderCachePolicy.swift */,
 			);
-			path = Cache;
+			path = Policies;
+			sourceTree = "<group>";
+		};
+		72BA9A9229B52DC0004F8E63 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				723559A1299967F90099B84C /* RestaurantItem.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		72BA9A9329B52E5F004F8E63 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				72BA9A9029B4F846004F8E63 /* CacheClientProtocol.swift */,
+				72BA9A8B29B4F77E004F8E63 /* CachePolicyProtocol.swift */,
+				722A8F1D29ABF9090022B40B /* RestaurantLoaderProtocol.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		72BA9A9429B53A85004F8E63 /* Clients */ = {
+			isa = PBXGroup;
+			children = (
+				72BA9A9529B53AFD004F8E63 /* CacheClient.swift */,
+				72147ECF2994729E002027A7 /* NetworkClient.swift */,
+			);
+			path = Clients;
+			sourceTree = "<group>";
+		};
+		72BA9A9729B53B71004F8E63 /* Loaders */ = {
+			isa = PBXGroup;
+			children = (
+				723559B02999A6610099B84C /* LocalRestaurantLoader.swift */,
+				7299331329917FE20009DE99 /* RemoteRestaurantLoader.swift */,
+			);
+			path = Loaders;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -320,14 +329,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				722A8F1E29ABF9090022B40B /* RestaurantLoader.swift in Sources */,
+				722A8F1E29ABF9090022B40B /* RestaurantLoaderProtocol.swift in Sources */,
 				7299331429917FE20009DE99 /* RemoteRestaurantLoader.swift in Sources */,
 				72BA9A8E29B4F798004F8E63 /* RestaurantLoaderCachePolicy.swift in Sources */,
-				72BA9A8C29B4F77E004F8E63 /* CachePolicy.swift in Sources */,
+				72BA9A8C29B4F77E004F8E63 /* CachePolicyProtocol.swift in Sources */,
 				723559B12999A6610099B84C /* LocalRestaurantLoader.swift in Sources */,
 				723559A2299967F90099B84C /* RestaurantItem.swift in Sources */,
+				72BA9A9629B53AFD004F8E63 /* CacheClient.swift in Sources */,
 				72147ED02994729E002027A7 /* NetworkClient.swift in Sources */,
-				72BA9A9129B4F846004F8E63 /* CacheClient.swift in Sources */,
+				72BA9A9129B4F846004F8E63 /* CacheClientProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

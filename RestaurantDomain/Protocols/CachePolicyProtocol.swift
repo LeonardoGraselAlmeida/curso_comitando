@@ -7,6 +7,6 @@
 
 import Foundation
 
-public protocol CachePolicy {
+public protocol CachePolicyProtocol {
     func validate(_ timestamp: Date, with currentDate: Date) -> Bool
 }

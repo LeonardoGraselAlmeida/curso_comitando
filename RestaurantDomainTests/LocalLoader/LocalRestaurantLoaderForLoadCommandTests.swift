@@ -13,7 +13,7 @@ class LocalRestaurantLoaderForLoadCommandTests: XCTestCase {
     func test_load_returned_completion_error() {
         let (sut, cache) = makeSUT()
         
-        var returnResult: RestaurantLoader.RemoteRestaurantResult?
+        var returnResult: RestaurantLoaderProtocol.RemoteRestaurantResult?
         sut.load { result in
             returnResult = result
         }
@@ -74,12 +74,12 @@ class LocalRestaurantLoaderForLoadCommandTests: XCTestCase {
     
     private func assert(
         _ sut: LocalRestaurantLoader,
-        completion result: RestaurantLoader.RemoteRestaurantResult?,
+        completion result: RestaurantLoaderProtocol.RemoteRestaurantResult?,
         when action: () -> Void,
         file: StaticString = #filePath,
         line: UInt = #line
     ) {
-        var returnResult: RestaurantLoader.RemoteRestaurantResult?
+        var returnResult: RestaurantLoaderProtocol.RemoteRestaurantResult?
         sut.load { result in
             returnResult = result
         }

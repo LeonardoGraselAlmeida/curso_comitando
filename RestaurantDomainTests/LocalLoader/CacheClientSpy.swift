@@ -8,7 +8,7 @@
 import Foundation
 import RestaurantDomain
 
-final class CacheClientSpy: CacheClient {
+final class CacheClientSpy: CacheClientProtocol {
     
     enum Methods: Equatable {
         case delete
@@ -20,13 +20,13 @@ final class CacheClientSpy: CacheClient {
     
     
     private var completionHandlerInsert: ((Error?) -> Void)?
-    func save(_ items: [RestaurantDomain.RestaurantItem], timestamp: Date, completion: @escaping CacheClient.SaveResult) {
+    func save(_ items: [RestaurantDomain.RestaurantItem], timestamp: Date, completion: @escaping CacheClientProtocol.SaveResult) {
         methodsCalled.append(.save(items: items, timestamp: timestamp))
         completionHandlerInsert = completion
     }
    
     private var completionHandlerDelete: ((Error?) -> Void)?
-    func delete(completion: @escaping CacheClient.DeleteResult) {
+    func delete(completion: @escaping CacheClientProtocol.DeleteResult) {
         methodsCalled.append(.delete)
         completionHandlerDelete = completion
     }
