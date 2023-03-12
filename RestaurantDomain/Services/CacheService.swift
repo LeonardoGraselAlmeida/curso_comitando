@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class CacheClient: CacheClientProtocol {
+final class CacheService: CacheClientProtocol {
     
     let managerURL: URL
     
@@ -58,4 +58,3 @@ final class CacheClient: CacheClientProtocol {
         }
     }
 }
-

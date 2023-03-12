@@ -33,7 +33,7 @@ final class LocalRestaurantLoaderForValidateCommandTests: XCTestCase {
         let currentDate = Date()
         let oneDayLessThanOldCacheDate = currentDate.adding(days: -1).adding(seconds: 1)
         let (sut, cache) = makeSUT()
-        let items = [RestaurantItem.mock]
+        let items = [RestaurantItem.makeItem()]
         
         sut.validateCache()
         cache.completionHandlerForLoad(.success(items: items, timestamp: oneDayLessThanOldCacheDate))
@@ -45,7 +45,7 @@ final class LocalRestaurantLoaderForValidateCommandTests: XCTestCase {
         let currentDate = Date()
         let oneDayLessThanOldCacheDate = currentDate.adding(days: -1)
         let (sut, cache) = makeSUT()
-        let items = [RestaurantItem.mock]
+        let items = [RestaurantItem.makeItem()]
         
         sut.validateCache()
         cache.completionHandlerForLoad(.success(items: items, timestamp: oneDayLessThanOldCacheDate))

@@ -12,7 +12,7 @@ final class LocalRestaurantLoaderForSaveCommandTests: XCTestCase {
     
     func test_save_deletes_old_cache() {
         let (sut, cache) = makeSUT()
-        let items: [RestaurantItem] = [RestaurantItem.mock]
+        let items: [RestaurantItem] = [RestaurantItem.makeItem()]
         
         sut.save(items) {_ in }
         
@@ -22,7 +22,7 @@ final class LocalRestaurantLoaderForSaveCommandTests: XCTestCase {
     func test_save_insert_new_data_on_cache() {
         let currentDate = Date()
         let (sut, cache) = makeSUT(currentDate: currentDate)
-        let items = [RestaurantItem.mock]
+        let items = [RestaurantItem.makeItem()]
         
         sut.save(items) { _ in }
         cache.completionHandlerForDelete(nil)
@@ -64,7 +64,7 @@ final class LocalRestaurantLoaderForSaveCommandTests: XCTestCase {
     func test_save_non_insert_after_sut_deallocated() {
         let currentDate = Date()
         let cache = CacheClientSpy()
-        let items: [RestaurantItem] = [RestaurantItem.mock]
+        let items: [RestaurantItem] = [RestaurantItem.makeItem()]
         var sut: LocalRestaurantLoader? = LocalRestaurantLoader(cache: cache, currentDate: {currentDate})
         
         var returnedError: Error?
@@ -81,7 +81,7 @@ final class LocalRestaurantLoaderForSaveCommandTests: XCTestCase {
     func test_save_non_completion_after_sut_deallocated() {
         let currentDate = Date()
         let cache = CacheClientSpy()
-        let items: [RestaurantItem] = [RestaurantItem.mock]
+        let items: [RestaurantItem] = [RestaurantItem.makeItem()]
         var sut: LocalRestaurantLoader? = LocalRestaurantLoader(cache: cache, currentDate: {currentDate})
         
         var returnedError: Error?
@@ -114,7 +114,7 @@ final class LocalRestaurantLoaderForSaveCommandTests: XCTestCase {
         file: StaticString = #filePath,
         line: UInt = #line
     ) {
-        let items: [RestaurantItem] = [RestaurantItem.mock]
+        let items: [RestaurantItem] = [RestaurantItem.makeItem()]
         
         var returnedError: Error?
         sut.save(items) { error in
