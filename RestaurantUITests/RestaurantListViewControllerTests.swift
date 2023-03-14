@@ -63,9 +63,7 @@ final class RestaurantListViewControllerTests: XCTestCase {
         
         sut.loadViewIfNeeded()
         
-        let result = sut.refreshControl?.isRefreshing ?? false
-        
-        XCTAssertTrue(result)
+        XCTAssertEqual(sut.refreshControl?.isRefreshing, true)
     }
     
     func test_load_when_completion_failure_should_be_hide_loading_indicator() {
@@ -75,9 +73,7 @@ final class RestaurantListViewControllerTests: XCTestCase {
         
         service.completionResult(.failure(.connectivity))
         
-        let result = sut.refreshControl?.isRefreshing ?? true
-        
-        XCTAssertFalse(result)
+        XCTAssertEqual(sut.refreshControl?.isRefreshing, false)
     }
     
     func test_load_when_completion_success_should_be_hide_loading_indicator() {
@@ -87,9 +83,7 @@ final class RestaurantListViewControllerTests: XCTestCase {
         
         service.completionResult(.success([.makeItem()]))
         
-        let result = sut.refreshControl?.isRefreshing ?? true
-        
-        XCTAssertFalse(result)
+        XCTAssertEqual(sut.refreshControl?.isRefreshing, false)
     }
     
     func test_pullToRefresh_should_be_show_loading_indicator() {
@@ -97,9 +91,7 @@ final class RestaurantListViewControllerTests: XCTestCase {
         
         sut.refreshControl?.simulatePullToRefresh()
         
-        let result = sut.refreshControl?.isRefreshing ?? false
-        
-        XCTAssertTrue(result)
+        XCTAssertEqual(sut.refreshControl?.isRefreshing, true)
     }
     
     func test_pullToRefresh_should_be_hide_loading_indicator_when_service_completion_failure(){
@@ -108,9 +100,7 @@ final class RestaurantListViewControllerTests: XCTestCase {
         sut.refreshControl?.simulatePullToRefresh()
         service.completionResult(.failure(.connectivity))
         
-        let result = sut.refreshControl?.isRefreshing ?? true
-        
-        XCTAssertFalse(result)
+        XCTAssertEqual(sut.refreshControl?.isRefreshing, false)
     }
     
     private func makeSUT(file: StaticString = #filePath, line: UInt = #line) ->  (sut: RestaurantListViewController, service: RestaurantLoaderSpy) {
