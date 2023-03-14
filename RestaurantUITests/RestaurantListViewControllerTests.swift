@@ -9,7 +9,7 @@ import XCTest
 import RestaurantDomain
 @testable import RestaurantUI
 
-final class RestaurantUITests: XCTestCase {
+final class RestaurantListViewControllerTests: XCTestCase {
     
     func test_init_does_not_load() {
         let (_, service) = makeSUT()
@@ -33,6 +33,16 @@ final class RestaurantUITests: XCTestCase {
         
         XCTAssertEqual(service.loadCount, 1)
         XCTAssertEqual(sut.restaurantCollection.count, 1)
+    }
+    
+    func test_load_returned_error_and_restaurantCollection_is_empty() {
+        let (sut, service) = makeSUT()
+         
+        sut.loadViewIfNeeded()
+        service.completionResult(.failure(.connectivity))
+        
+        XCTAssertEqual(service.loadCount, 1)
+        XCTAssertEqual(sut.restaurantCollection.count, 0)
     }
     
     private func makeSUT(file: StaticString = #filePath, line: UInt = #line) ->  (sut: RestaurantListViewController, service: RestaurantLoaderSpy) {
