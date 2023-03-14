@@ -8,7 +8,7 @@
 import UIKit
 import RestaurantDomain
 
-final class RestaurantListViewController: UIViewController {
+final class RestaurantListViewController: UITableViewController {
     
     private(set) var restaurantCollection: [RestaurantItem] = []
     private var service: RestaurantLoaderProtocol?
@@ -20,6 +20,18 @@ final class RestaurantListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setupRefreshControl()
+        loadService()
+    }
+    
+    private func setupRefreshControl() {
+        refreshControl = UIRefreshControl()
+        refreshControl?.addTarget(self, action: #selector(loadService), for: .valueChanged)
+        refreshControl?.beginRefreshing()
+    }
+    
+    @objc func loadService() {
         service?.load { [weak self] result in
             guard let self else { return }
             switch result {
@@ -27,6 +39,8 @@ final class RestaurantListViewController: UIViewController {
                 self.restaurantCollection = items
             default: break
             }
+            
+            self.refreshControl?.endRefreshing()
         }
     }
 } 
