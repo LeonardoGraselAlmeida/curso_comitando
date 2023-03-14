@@ -20,7 +20,8 @@ final class RestaurantListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        service?.load { result in
+        service?.load { [weak self] result in
+            guard let self else { return }
             switch result {
             case let .success(items):
                 self.restaurantCollection = items
@@ -28,4 +29,4 @@ final class RestaurantListViewController: UIViewController {
             }
         }
     }
-}
+} 

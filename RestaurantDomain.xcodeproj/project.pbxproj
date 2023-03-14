@@ -28,6 +28,8 @@
 		72B3F38329BFF9D000E3F565 /* RestaurantDomain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 729932FB29917C8B0009DE99 /* RestaurantDomain.framework */; };
 		72B3F38429BFF9D000E3F565 /* RestaurantDomain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 729932FB29917C8B0009DE99 /* RestaurantDomain.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		72B3F38929BFFACE00E3F565 /* RestaurantListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72B3F38829BFFACE00E3F565 /* RestaurantListViewController.swift */; };
+		72B3F38A29BFFEB600E3F565 /* XCTestCase+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723559AA299985580099B84C /* XCTestCase+Extension.swift */; };
+		72B3F38B29C0008200E3F565 /* RestaurantItem+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72BA9A8929B4F136004F8E63 /* RestaurantItem+Extension.swift */; };
 		72BA9A8529B4E793004F8E63 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72BA9A8429B4E793004F8E63 /* Date+Extension.swift */; };
 		72BA9A8729B4F05C004F8E63 /* LocalRestaurantLoaderForValidateCommandTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72BA9A8629B4F05C004F8E63 /* LocalRestaurantLoaderForValidateCommandTests.swift */; };
 		72BA9A8A29B4F136004F8E63 /* RestaurantItem+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72BA9A8929B4F136004F8E63 /* RestaurantItem+Extension.swift */; };
@@ -528,7 +530,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				72B3F38A29BFFEB600E3F565 /* XCTestCase+Extension.swift in Sources */,
 				72B3F37029BFF4D000E3F565 /* RestaurantUITests.swift in Sources */,
+				72B3F38B29C0008200E3F565 /* RestaurantItem+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

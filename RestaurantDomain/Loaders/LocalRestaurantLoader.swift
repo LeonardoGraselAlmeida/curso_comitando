@@ -55,7 +55,7 @@ public final class LocalRestaurantLoader {
 
 extension LocalRestaurantLoader: RestaurantLoaderProtocol {
     
-    public func load(completion: @escaping (RemoteRestaurantResult) -> Void) {
+    public func load(completion: @escaping (RestaurantResult) -> Void) {
         cache.load { [weak self] state in
             guard let self else { return }
             switch state {
