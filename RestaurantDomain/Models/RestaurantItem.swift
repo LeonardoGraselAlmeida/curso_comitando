@@ -24,4 +24,11 @@ public struct RestaurantItem: Codable, Equatable {
         self.parasols = parasols
     }
     
+    public var parasolsToString: String {
+        return "Guarda-sois: \(parasols)"
+    }
+    
+    public var distanceToString: String {
+        return "Distância: \(distance)m"
+    }
 }

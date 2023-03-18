@@ -118,9 +118,26 @@ final class RestaurantListViewControllerTests: XCTestCase {
         XCTAssertEqual(sut.isShowLoadingIndicator, false)
     }
     
+    func test_render_all_restaurant_information_in_view() {
+        let (sut, service) = makeSUT()
+        let restaurantItem: RestaurantItem = .makeItem()
+        
+        sut.loadViewIfNeeded()
+        service.completionResult(.success([restaurantItem]))
+        
+        XCTAssertEqual(sut.numberOfRows(), 1)
+        
+        let cell = sut.tableView(sut.tableView, cellForRowAt: IndexPath(row: 0, section: 0)) as? RestaurantItemCell
+        XCTAssertNotNil(cell)
+        XCTAssertEqual(cell?.title.text, restaurantItem.name)
+        XCTAssertEqual(cell?.parasols.text, restaurantItem.parasolsToString)
+        XCTAssertEqual(cell?.distance.text, restaurantItem.distanceToString)
+
+    }
+    
     private func makeSUT(file: StaticString = #filePath, line: UInt = #line) ->  (sut: RestaurantListViewController, service: RestaurantLoaderSpy) {
         let service = RestaurantLoaderSpy()
-        let sut = RestaurantListViewController(service: service)
+        let sut = RestaurantListComponse.componse(service: service)
         
         trackForMemoryLeaks(sut, file: file, line: line)
         trackForMemoryLeaks(service, file: file, line: line)
@@ -151,11 +168,15 @@ final class RestaurantLoaderSpy: RestaurantLoaderProtocol {
 
 private extension RestaurantListViewController {
     
+    var isShowLoadingIndicator: Bool {
+        return refreshControl?.isRefreshing ?? false
+    }
+    
     func simulatePullToRefresh() {
         refreshControl?.simulatePullToRefresh()
     }
     
-    var isShowLoadingIndicator: Bool {
-        return refreshControl?.isRefreshing ?? false
+    func numberOfRows() -> Int {
+        return tableView.numberOfRows(inSection: 0)
     }
 }
