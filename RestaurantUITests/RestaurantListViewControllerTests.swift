@@ -104,6 +104,20 @@ final class RestaurantListViewControllerTests: XCTestCase {
         XCTAssertEqual(sut.isShowLoadingIndicator, false)
     }
     
+    func test_show_loading_indicator_for_all_life_cycle_view() {
+        let (sut, service) = makeSUT()
+        
+        sut.loadViewIfNeeded()
+        XCTAssertEqual(sut.isShowLoadingIndicator, true)
+        service.completionResult(.failure(.connectivity))
+        XCTAssertEqual(sut.isShowLoadingIndicator, false)
+        
+        sut.simulatePullToRefresh()
+        XCTAssertEqual(sut.isShowLoadingIndicator, true)
+        service.completionResult(.success([.makeItem()]))
+        XCTAssertEqual(sut.isShowLoadingIndicator, false)
+    }
+    
     private func makeSUT(file: StaticString = #filePath, line: UInt = #line) ->  (sut: RestaurantListViewController, service: RestaurantLoaderSpy) {
         let service = RestaurantLoaderSpy()
         let sut = RestaurantListViewController(service: service)
