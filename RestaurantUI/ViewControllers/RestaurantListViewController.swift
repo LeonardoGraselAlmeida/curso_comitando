@@ -9,23 +9,24 @@ import UIKit
 
 final class RestaurantListViewController: UITableViewController {
     
-    var restaurantCollection = [RestaurantItemCellController]() {
-        didSet {
-            tableView.reloadData()
-        }
-    }
+    private(set) var restaurantCollection: [RestaurantItemCellController] = []
     
-    private var refreshController: RefreshController?
+    private var interactor: RestaurantListInteractorInput?
     
-    convenience init(refreshController: RefreshController) {
+    convenience init(interactor: RestaurantListInteractorInput) {
         self.init()
-        self.refreshController = refreshController
+        self.interactor = interactor
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        refreshControl = refreshController?.view
-        refreshController?.refresh()
+        refreshControl = UIRefreshControl()
+        refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        refresh()
+    }
+    
+    @objc func refresh() {
+        interactor?.loadService()
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -35,5 +36,21 @@ final class RestaurantListViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
          return restaurantCollection[indexPath.row].renderCell()
     }
-} 
+}
+
+extension RestaurantListViewController: RestaurantListPresenterOutput {
+    func onLoadingChange(_ isLoading: Bool) {
+        if isLoading {
+            refreshControl?.beginRefreshing()
+        } else {
+            refreshControl?.endRefreshing()
+        }
+    }
+    
+    func onRestaurantItemCell(_ items: [RestaurantItemCellController]) {
+        restaurantCollection = items
+        tableView.reloadData()
+    }
+    
+}
 
