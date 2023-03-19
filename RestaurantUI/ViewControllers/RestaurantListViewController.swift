@@ -33,7 +33,7 @@ final class RestaurantListViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return restaurantCollection[indexPath.row].renderCell()
+         return restaurantCollection[indexPath.row].renderCell()
     }
 } 
 

@@ -10,31 +10,29 @@ import RestaurantDomain
 
 final class RefreshController: NSObject {
     
-    private(set) lazy var view: UIRefreshControl = {
-        var refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
-        return refreshControl
-    }()
+    private(set) lazy var view: UIRefreshControl = setupRefreshControl(UIRefreshControl())
     
-    private let service: RestaurantLoaderProtocol
+    private let viewModel: RestaurantListViewModel
     
-    init(service: RestaurantLoaderProtocol) {
-        self.service = service
+    init(viewModel: RestaurantListViewModel) {
+        self.viewModel = viewModel
     }
-    
-    var onRefresh: (([RestaurantItem]) -> Void)?
     
     @objc func refresh() {
         view.beginRefreshing()
-        service.load { [weak self] result in
-            
-            switch result {
-            case let .success(items):
-                self?.onRefresh?(items)
-            default: break
+        viewModel.loadService()
+    }
+    
+    func setupRefreshControl(_ refreshControl: UIRefreshControl) -> UIRefreshControl {
+        viewModel.onLoadingState = { [weak self] loading in
+            if loading {
+                self?.view.beginRefreshing()
+            } else {
+                self?.view.endRefreshing()
             }
-            
-            self?.view.endRefreshing()
         }
+        
+        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        return refreshControl
     }
 }
