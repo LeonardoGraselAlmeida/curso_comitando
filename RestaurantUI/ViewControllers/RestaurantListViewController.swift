@@ -11,11 +11,15 @@ final class RestaurantListViewController: UITableViewController {
     
     private(set) var restaurantCollection: [RestaurantItemCellController] = []
     
-    private var interactor: RestaurantListInteractorInput?
+    private let interactor: RestaurantListInteractorInput
     
-    convenience init(interactor: RestaurantListInteractorInput) {
-        self.init()
+    init(interactor: RestaurantListInteractorInput) {
         self.interactor = interactor
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        return nil
     }
     
     override func viewDidLoad() {
@@ -27,7 +31,7 @@ final class RestaurantListViewController: UITableViewController {
     }
     
     @objc func refresh() {
-        interactor?.loadService()
+        interactor.loadService()
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -56,6 +60,4 @@ extension RestaurantListViewController: RestaurantListPresenterOutput {
         restaurantCollection = items
         tableView.reloadData()
     }
-    
 }
-
