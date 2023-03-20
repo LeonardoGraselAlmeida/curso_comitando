@@ -22,6 +22,7 @@ final class RestaurantListViewController: UITableViewController {
         super.viewDidLoad()
         refreshControl = UIRefreshControl()
         refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        tableView.register(RestaurantItemCell.self, forCellReuseIdentifier: RestaurantItemCell.identifier)
         refresh()
     }
     
@@ -34,7 +35,11 @@ final class RestaurantListViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-         return restaurantCollection[indexPath.row].renderCell()
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: RestaurantItemCell.identifier, for: indexPath) as? RestaurantItemCell else { return UITableViewCell() }
+        let cellController = restaurantCollection[indexPath.row]
+        cellController.setupCell(cell)
+        
+        return cell
     }
 }
 

@@ -16,8 +16,7 @@ final class RestaurantItemCellController {
         self.model = model
     }
     
-    func renderCell() -> UITableViewCell {
-        let cell = RestaurantItemCell()
+    func setupCell(_ cell: RestaurantItemCell) {
         cell.title.text = model.name
         cell.location.text = model.location
         cell.distance.text = model.distanceToString
@@ -26,6 +25,5 @@ final class RestaurantItemCellController {
             let systemName = index < model.ratings ? "start.fill" : "star"
             image.image = UIImage(systemName: systemName)
         }
-        return cell
     }
 }
