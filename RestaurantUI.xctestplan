@@ -1,0 +1,25 @@
+{
+  "configurations" : [
+    {
+      "id" : "E92C6819-CA5A-4068-BE67-23FF35F6F6AC",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:RestaurantDomain.xcodeproj",
+        "identifier" : "72B3F36929BFF4D000E3F565",
+        "name" : "RestaurantUITests"
+      }
+    }
+  ],
+  "version" : 1
+}

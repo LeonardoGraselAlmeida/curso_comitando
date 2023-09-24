@@ -112,6 +112,7 @@
 		7299330329917C8B0009DE99 /* RestaurantDomainTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RestaurantDomainTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7299330829917C8B0009DE99 /* RemoteRestaurantLoaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteRestaurantLoaderTests.swift; sourceTree = "<group>"; };
 		7299331329917FE20009DE99 /* RemoteRestaurantLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteRestaurantLoader.swift; sourceTree = "<group>"; };
+		72A4488C2AC07E9C000EBBB5 /* RestaurantUI.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = RestaurantUI.xctestplan; sourceTree = "<group>"; };
 		72B3F36329BFF4D000E3F565 /* RestaurantUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RestaurantUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		72B3F36529BFF4D000E3F565 /* RestaurantUI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RestaurantUI.h; sourceTree = "<group>"; };
 		72B3F36A29BFF4D000E3F565 /* RestaurantUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RestaurantUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -253,6 +254,7 @@
 		729932F129917C8B0009DE99 = {
 			isa = PBXGroup;
 			children = (
+				72A4488C2AC07E9C000EBBB5 /* RestaurantUI.xctestplan */,
 				729932FD29917C8B0009DE99 /* RestaurantDomain */,
 				7299330729917C8B0009DE99 /* RestaurantDomainTests */,
 				72B3F36429BFF4D000E3F565 /* RestaurantUI */,
