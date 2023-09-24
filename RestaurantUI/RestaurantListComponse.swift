@@ -14,6 +14,7 @@ final class RestaurantListComponse {
         let presenter = RestaurantListPresenter()
         let interactor = RestaurantListInteractor(service: service, presenter: presenter)
         let controller = RestaurantListViewController(interactor: interactor)
+        controller.title = "Praia do Forte"
         presenter.view = controller
         return controller
     }
