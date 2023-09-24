@@ -56,6 +56,7 @@ class RestaurantItemCell: UITableViewCell {
     
     private func renderImage(_ systemName: String) -> UIImageView {
         let imageView = UIImageView()
+        imageView.tintColor = .black
         imageView.image = UIImage(systemName: systemName)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
@@ -97,10 +98,11 @@ extension RestaurantItemCell: ViewCode {
             hstack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -margin),
             hstack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -margin),
             hstack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: margin),
-            
-            
+
         ])
     }
     
-    
+    func setupAdditionalConfiguration() {
+        accessoryType = .disclosureIndicator
+    }
 }

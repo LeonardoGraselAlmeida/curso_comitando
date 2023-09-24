@@ -25,6 +25,8 @@
 		72585D1C29C788DE00BE0BD7 /* RestaurantListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72585D1B29C788DE00BE0BD7 /* RestaurantListInteractor.swift */; };
 		72585D1F29C790AD00BE0BD7 /* RestaurantListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72585D1E29C790AD00BE0BD7 /* RestaurantListPresenter.swift */; };
 		72585D2229C7FD3100BE0BD7 /* ViewCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72585D2129C7FD3100BE0BD7 /* ViewCode.swift */; };
+		7265B6B729D8BB290010A342 /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 7265B6B629D8BB290010A342 /* SnapshotTesting */; };
+		7265B6B929D8BC0E0010A342 /* RestaurantUISnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7265B6B829D8BC0E0010A342 /* RestaurantUISnapshotTests.swift */; };
 		7299330429917C8B0009DE99 /* RestaurantDomain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 729932FB29917C8B0009DE99 /* RestaurantDomain.framework */; };
 		7299330929917C8B0009DE99 /* RemoteRestaurantLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7299330829917C8B0009DE99 /* RemoteRestaurantLoaderTests.swift */; };
 		7299330A29917C8B0009DE99 /* RestaurantDomain.h in Headers */ = {isa = PBXBuildFile; fileRef = 729932FE29917C8B0009DE99 /* RestaurantDomain.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -104,6 +106,7 @@
 		72585D1B29C788DE00BE0BD7 /* RestaurantListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantListInteractor.swift; sourceTree = "<group>"; };
 		72585D1E29C790AD00BE0BD7 /* RestaurantListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantListPresenter.swift; sourceTree = "<group>"; };
 		72585D2129C7FD3100BE0BD7 /* ViewCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewCode.swift; sourceTree = "<group>"; };
+		7265B6B829D8BC0E0010A342 /* RestaurantUISnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantUISnapshotTests.swift; sourceTree = "<group>"; };
 		729932FB29917C8B0009DE99 /* RestaurantDomain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RestaurantDomain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		729932FE29917C8B0009DE99 /* RestaurantDomain.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RestaurantDomain.h; sourceTree = "<group>"; };
 		7299330329917C8B0009DE99 /* RestaurantDomainTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RestaurantDomainTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -153,6 +156,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				72B3F36B29BFF4D000E3F565 /* RestaurantUI.framework in Frameworks */,
+				7265B6B729D8BB290010A342 /* SnapshotTesting in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -313,6 +317,7 @@
 			children = (
 				722CFC2229C003C200C53303 /* Extensions */,
 				72B3F36F29BFF4D000E3F565 /* RestaurantListViewControllerTests.swift */,
+				7265B6B829D8BC0E0010A342 /* RestaurantUISnapshotTests.swift */,
 			);
 			path = RestaurantUITests;
 			sourceTree = "<group>";
@@ -477,6 +482,9 @@
 				72B3F36D29BFF4D000E3F565 /* PBXTargetDependency */,
 			);
 			name = RestaurantUITests;
+			packageProductDependencies = (
+				7265B6B629D8BB290010A342 /* SnapshotTesting */,
+			);
 			productName = RestaurantUITests;
 			productReference = 72B3F36A29BFF4D000E3F565 /* RestaurantUITests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -516,6 +524,9 @@
 				Base,
 			);
 			mainGroup = 729932F129917C8B0009DE99;
+			packageReferences = (
+				7265B6B529D8BB290010A342 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */,
+			);
 			productRefGroup = 729932FC29917C8B0009DE99 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -616,6 +627,7 @@
 				72B3F38A29BFFEB600E3F565 /* XCTestCase+Extension.swift in Sources */,
 				72B3F37029BFF4D000E3F565 /* RestaurantListViewControllerTests.swift in Sources */,
 				722CFC2429C003D000C53303 /* UIRefreshControl+Extension.swift in Sources */,
+				7265B6B929D8BC0E0010A342 /* RestaurantUISnapshotTests.swift in Sources */,
 				72B3F38B29C0008200E3F565 /* RestaurantItem+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1027,6 +1039,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		7265B6B529D8BB290010A342 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-snapshot-testing";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		7265B6B629D8BB290010A342 /* SnapshotTesting */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7265B6B529D8BB290010A342 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */;
+			productName = SnapshotTesting;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 729932F229917C8B0009DE99 /* Project object */;
 }
