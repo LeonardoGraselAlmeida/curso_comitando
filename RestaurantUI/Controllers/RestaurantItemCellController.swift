@@ -22,7 +22,7 @@ final class RestaurantItemCellController {
         cell.distance.text = model.distanceToString
         cell.parasols.text = model.parasolsToString
         cell.collectionOfRating.enumerated().forEach { (index, image) in
-            let systemName = index < model.ratings ? "start.fill" : "star"
+            let systemName = index < model.ratings ? "star.fill" : "star"
             image.image = UIImage(systemName: systemName)
         }
     }

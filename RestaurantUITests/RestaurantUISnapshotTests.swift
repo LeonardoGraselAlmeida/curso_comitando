@@ -17,7 +17,17 @@ final class RestaurantUISnapshotTests: XCTestCase {
         let cell = RestaurantItemCell(style: .default, reuseIdentifier: RestaurantItemCell.identifier)
         cell.backgroundColor = .white
         controller.setupCell(cell)
-        assertSnapshot(matching: cell, as: .image(size: CGSize(width: 375, height: 175)), record: true)
+        assertSnapshot(matching: cell, as: .image(size: CGSize(width: 375, height: 175)))
+    }
+    
+    func test_snapshot_render_restaurantListViewController() {
+        let (sut, service) = makeSUT()
+        let navigation = UINavigationController(rootViewController: sut)
+        
+        sut.loadViewIfNeeded()
+        service.completionResult(.success(dataModel))
+        
+        assertSnapshot(matching: navigation, as: .image(on: .iPhoneX(.portrait)))
     }
     
     private func makeSUT(file: StaticString = #filePath, line: UInt = #line) ->  (sut: RestaurantListViewController, service: RestaurantLoaderSpy) {
