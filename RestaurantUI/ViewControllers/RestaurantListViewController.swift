@@ -40,7 +40,7 @@ final class RestaurantListViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: RestaurantItemCell.identifier, for: indexPath) as? RestaurantItemCell else { return UITableViewCell() }
-        let cellController = restaurantCollection[indexPath.row]
+         let cellController = restaurantCollection[indexPath.row]
         cellController.setupCell(cell)
         
         return cell

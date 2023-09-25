@@ -118,6 +118,21 @@ final class RestaurantListViewControllerTests: XCTestCase {
         XCTAssertEqual(sut.isShowLoadingIndicator, false)
     }
     
+    func test_load_completion_dispatches_in_background_threds() {
+        let (sut, service) = makeSUT()
+        let items: [RestaurantItem] = [.makeItem()]
+        
+        sut.loadViewIfNeeded()
+        let exp = expectation(description: #function)
+        DispatchQueue.global().async {
+            service.completionResult(.success(items))
+            exp.fulfill()
+        }
+        
+        wait(for: [exp], timeout: 1.0)
+        XCTAssertTrue(true)
+    }
+    
     func test_render_all_restaurant_information_in_view() {
         let (sut, service) = makeSUT()
         let restaurantItem: RestaurantItem = .makeItem()
