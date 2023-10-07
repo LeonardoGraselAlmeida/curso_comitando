@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class CacheService: CacheClientProtocol {
+public final class CacheService: CacheClientProtocol {
     
     private let managerURL: URL
     private let callbackQueue = DispatchQueue(label: "\(CacheService.self).CallbackQueue", qos: .userInitiated, attributes: .concurrent)
@@ -17,11 +17,11 @@ final class CacheService: CacheClientProtocol {
         let timestamp: Date
     }
     
-    init(managerURL: URL) {
+    public init(managerURL: URL) {
         self.managerURL = managerURL
     }
     
-    func save(_ items: [RestaurantItem], timestamp: Date, completion: @escaping SaveResult) {
+    public func save(_ items: [RestaurantItem], timestamp: Date, completion: @escaping SaveResult) {
         let managerURL = self.managerURL
         callbackQueue.async(flags: .barrier) {
             do {
@@ -36,7 +36,7 @@ final class CacheService: CacheClientProtocol {
         }
     }
     
-    func delete(completion: @escaping DeleteResult) {
+    public func delete(completion: @escaping DeleteResult) {
         let managerURL = self.managerURL
         callbackQueue.async {
             guard FileManager.default.fileExists(atPath: managerURL.path) else {
@@ -52,7 +52,7 @@ final class CacheService: CacheClientProtocol {
         }
     }
     
-    func load(completion: @escaping LoadResult) {
+    public func load(completion: @escaping LoadResult) {
         let managerURL = self.managerURL
         callbackQueue.async {
             guard let data = try? Data(contentsOf: managerURL) else {

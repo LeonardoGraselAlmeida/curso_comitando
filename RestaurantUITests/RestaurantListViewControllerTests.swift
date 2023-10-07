@@ -11,23 +11,23 @@ import RestaurantDomain
 
 final class RestaurantListViewControllerTests: XCTestCase {
     
-    func test_init_does_not_load() {
-        let (sut, service) = makeSUT()
+    func test_init_does_not_load() throws {
+        let (sut, service) = try makeSUT()
         
         XCTAssertTrue(service.methodsCalled.isEmpty)
         XCTAssertTrue(sut.restaurantCollection.isEmpty)
     }
     
-    func test_viewDidLoad_should_be_called_load_service() {
-        let (sut, service) = makeSUT()
+    func test_viewDidLoad_should_be_called_load_service() throws {
+        let (sut, service) = try makeSUT()
         
         sut.loadViewIfNeeded()
         
         XCTAssertEqual(service.methodsCalled, [.load])
     }
     
-    func test_load_returned_restaurantItems_data_and_restaurantCollection_does_not_empty() {
-        let (sut, service) = makeSUT()
+    func test_load_returned_restaurantItems_data_and_restaurantCollection_does_not_empty() throws {
+        let (sut, service) = try makeSUT()
         
         sut.loadViewIfNeeded()
         service.completionResult(.success([RestaurantItem.makeItem()]))
@@ -36,8 +36,8 @@ final class RestaurantListViewControllerTests: XCTestCase {
         XCTAssertEqual(sut.restaurantCollection.count, 1)
     }
     
-    func test_load_returned_error_and_restaurantCollection_is_empty() {
-        let (sut, service) = makeSUT()
+    func test_load_returned_error_and_restaurantCollection_is_empty() throws {
+        let (sut, service) = try makeSUT()
         
         sut.loadViewIfNeeded()
         service.completionResult(.failure(.connectivity))
@@ -46,8 +46,8 @@ final class RestaurantListViewControllerTests: XCTestCase {
         XCTAssertEqual(sut.restaurantCollection.count, 0)
     }
     
-    func test_pullToRefresh_should_be_called_load_service() {
-        let (sut, service) = makeSUT()
+    func test_pullToRefresh_should_be_called_load_service() throws {
+        let (sut, service) = try makeSUT()
         
         sut.simulatePullToRefresh()
         XCTAssertEqual(service.methodsCalled, [.load, .load])
@@ -59,16 +59,16 @@ final class RestaurantListViewControllerTests: XCTestCase {
         XCTAssertEqual(service.methodsCalled, [.load, .load, .load, .load])
     }
     
-    func test_viewDidLoad_show_loading_indicator() {
-        let (sut, _) = makeSUT()
+    func test_viewDidLoad_show_loading_indicator() throws {
+        let (sut, _) = try makeSUT()
         
         sut.loadViewIfNeeded()
         
         XCTAssertEqual(sut.isShowLoadingIndicator, true)
     }
     
-    func test_load_when_completion_failure_should_be_hide_loading_indicator() {
-        let (sut, service) = makeSUT()
+    func test_load_when_completion_failure_should_be_hide_loading_indicator() throws {
+        let (sut, service) = try makeSUT()
         
         sut.loadViewIfNeeded()
         
@@ -77,8 +77,8 @@ final class RestaurantListViewControllerTests: XCTestCase {
         XCTAssertEqual(sut.isShowLoadingIndicator, false)
     }
     
-    func test_load_when_completion_success_should_be_hide_loading_indicator() {
-        let (sut, service) = makeSUT()
+    func test_load_when_completion_success_should_be_hide_loading_indicator() throws {
+        let (sut, service) = try makeSUT()
         
         sut.loadViewIfNeeded()
         
@@ -87,16 +87,16 @@ final class RestaurantListViewControllerTests: XCTestCase {
         XCTAssertEqual(sut.isShowLoadingIndicator, false)
     }
     
-    func test_pullToRefresh_should_be_show_loading_indicator() {
-        let (sut, _) = makeSUT()
+    func test_pullToRefresh_should_be_show_loading_indicator() throws {
+        let (sut, _) = try makeSUT()
         
         sut.simulatePullToRefresh()
         
         XCTAssertEqual(sut.isShowLoadingIndicator, true)
     }
     
-    func test_pullToRefresh_should_be_hide_loading_indicator_when_service_completion_failure(){
-        let (sut, service) = makeSUT()
+    func test_pullToRefresh_should_be_hide_loading_indicator_when_service_completion_failure() throws {
+        let (sut, service) = try makeSUT()
         
         sut.simulatePullToRefresh()
         service.completionResult(.failure(.connectivity))
@@ -104,8 +104,8 @@ final class RestaurantListViewControllerTests: XCTestCase {
         XCTAssertEqual(sut.isShowLoadingIndicator, false)
     }
     
-    func test_show_loading_indicator_for_all_life_cycle_view() {
-        let (sut, service) = makeSUT()
+    func test_show_loading_indicator_for_all_life_cycle_view() throws {
+        let (sut, service) = try makeSUT()
         
         sut.loadViewIfNeeded()
         XCTAssertEqual(sut.isShowLoadingIndicator, true)
@@ -118,8 +118,8 @@ final class RestaurantListViewControllerTests: XCTestCase {
         XCTAssertEqual(sut.isShowLoadingIndicator, false)
     }
     
-    func test_load_completion_dispatches_in_background_threds() {
-        let (sut, service) = makeSUT()
+    func test_load_completion_dispatches_in_background_threds() throws {
+        let (sut, service) = try makeSUT()
         let items: [RestaurantItem] = [.makeItem()]
         
         sut.loadViewIfNeeded()
@@ -133,8 +133,8 @@ final class RestaurantListViewControllerTests: XCTestCase {
         XCTAssertTrue(true)
     }
     
-    func test_render_all_restaurant_information_in_view() {
-        let (sut, service) = makeSUT()
+    func test_render_all_restaurant_information_in_view() throws {
+        let (sut, service) = try makeSUT()
         let restaurantItem: RestaurantItem = .makeItem()
         
         sut.loadViewIfNeeded()
@@ -150,9 +150,9 @@ final class RestaurantListViewControllerTests: XCTestCase {
 
     }
     
-    private func makeSUT(file: StaticString = #filePath, line: UInt = #line) ->  (sut: RestaurantListViewController, service: RestaurantLoaderSpy) {
+    private func makeSUT(file: StaticString = #filePath, line: UInt = #line) throws ->  (sut: RestaurantListViewController, service: RestaurantLoaderSpy) {
         let service = RestaurantLoaderSpy()
-        let sut = RestaurantListComponse.componse(service: service)
+        let sut = try XCTUnwrap(RestaurantListComponse.componse(service: service) as? RestaurantListViewController)
         
         trackForMemoryLeaks(sut, file: file, line: line)
         trackForMemoryLeaks(service, file: file, line: line)

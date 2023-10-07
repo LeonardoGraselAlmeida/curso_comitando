@@ -61,6 +61,7 @@
 		72FCE6E42AD1630A00B0761C /* RestaurantDomain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 729932FB29917C8B0009DE99 /* RestaurantDomain.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		72FCE6E72AD1630A00B0761C /* RestaurantUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72B3F36329BFF4D000E3F565 /* RestaurantUI.framework */; };
 		72FCE6E82AD1630A00B0761C /* RestaurantUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 72B3F36329BFF4D000E3F565 /* RestaurantUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		72FCE6ED2AD19D8A00B0761C /* RestaurantLoaderCompositeRemoteAndLocal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72FCE6EC2AD19D8A00B0761C /* RestaurantLoaderCompositeRemoteAndLocal.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -194,6 +195,7 @@
 		72FCE6D22AD161C800B0761C /* SunnyDayUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SunnyDayUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		72FCE6D62AD161C800B0761C /* SunnyDayUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SunnyDayUITests.swift; sourceTree = "<group>"; };
 		72FCE6D82AD161C800B0761C /* SunnyDayUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SunnyDayUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		72FCE6EC2AD19D8A00B0761C /* RestaurantLoaderCompositeRemoteAndLocal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantLoaderCompositeRemoteAndLocal.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -501,13 +503,14 @@
 		72FCE6B42AD161C500B0761C /* SunnyDay */ = {
 			isa = PBXGroup;
 			children = (
+				72FCE6C32AD161C700B0761C /* Info.plist */,
 				72FCE6B52AD161C500B0761C /* AppDelegate.swift */,
+				72FCE6EC2AD19D8A00B0761C /* RestaurantLoaderCompositeRemoteAndLocal.swift */,
 				72FCE6B72AD161C500B0761C /* SceneDelegate.swift */,
 				72FCE6B92AD161C500B0761C /* ViewController.swift */,
-				72FCE6BB2AD161C600B0761C /* Main.storyboard */,
 				72FCE6BE2AD161C700B0761C /* Assets.xcassets */,
 				72FCE6C02AD161C700B0761C /* LaunchScreen.storyboard */,
-				72FCE6C32AD161C700B0761C /* Info.plist */,
+				72FCE6BB2AD161C600B0761C /* Main.storyboard */,
 			);
 			path = SunnyDay;
 			sourceTree = "<group>";
@@ -871,6 +874,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				72FCE6BA2AD161C600B0761C /* ViewController.swift in Sources */,
+				72FCE6ED2AD19D8A00B0761C /* RestaurantLoaderCompositeRemoteAndLocal.swift in Sources */,
 				72FCE6B62AD161C500B0761C /* AppDelegate.swift in Sources */,
 				72FCE6B82AD161C500B0761C /* SceneDelegate.swift in Sources */,
 			);
@@ -1305,7 +1309,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1338,7 +1342,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

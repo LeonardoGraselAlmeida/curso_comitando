@@ -13,7 +13,7 @@ extension RestaurantItemCell {
     }
 }
 
-public class RestaurantItemCell: UITableViewCell {
+class RestaurantItemCell: UITableViewCell {
     
     private(set) lazy var hstack: UIStackView = renderStack(axis: .horizontal, spacing: 16, alignment: .center)
     private(set) lazy var vstack: UIStackView = renderStack(axis: .vertical, spacing: 4, alignment: .leading)
@@ -21,10 +21,10 @@ public class RestaurantItemCell: UITableViewCell {
     
     private(set) lazy var mapImage = renderImage("map")
     
-    public private(set) lazy var title: UILabel = renderLabel(font: .preferredFont(forTextStyle: .title2))
-    public private(set) lazy var location: UILabel = renderLabel(font: .preferredFont(forTextStyle: .body))
-    public private(set) lazy var distance: UILabel = renderLabel(font: .preferredFont(forTextStyle: .body))
-    public private(set) lazy var parasols: UILabel = renderLabel(font: .preferredFont(forTextStyle: .body))
+    private(set) lazy var title: UILabel = renderLabel(font: .preferredFont(forTextStyle: .title2))
+    private(set) lazy var location: UILabel = renderLabel(font: .preferredFont(forTextStyle: .body))
+    private(set) lazy var distance: UILabel = renderLabel(font: .preferredFont(forTextStyle: .body))
+    private(set) lazy var parasols: UILabel = renderLabel(font: .preferredFont(forTextStyle: .body))
     
     private(set) lazy var collectionOfRating: [UIImageView] = renderCollectionOfImage()
     
@@ -77,7 +77,7 @@ extension RestaurantItemCell: ViewCode {
         return 16
     }
     
-    public func buildViewHierarchy() {
+    func buildViewHierarchy() {
         contentView.addSubview(hstack)
         
         hstack.addArrangedSubview(mapImage)
@@ -92,7 +92,7 @@ extension RestaurantItemCell: ViewCode {
         collectionOfRating.forEach { hRatingStack.addArrangedSubview($0) }
     }
     
-    public func setupConstraints() {
+    func setupConstraints() {
         NSLayoutConstraint.activate([
             hstack.topAnchor.constraint(equalTo: contentView.topAnchor, constant: margin),
             hstack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -margin),

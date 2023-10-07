@@ -20,8 +20,8 @@ final class RestaurantUISnapshotTests: XCTestCase {
         assertSnapshot(matching: cell, as: .image(size: CGSize(width: 375, height: 175)))
     }
     
-    func test_snapshot_render_restaurantListViewController() {
-        let (sut, service) = makeSUT()
+    func test_snapshot_render_restaurantListViewController() throws {
+        let (sut, service) = try makeSUT()
         let navigation = UINavigationController(rootViewController: sut)
         
         sut.loadViewIfNeeded()
@@ -30,9 +30,9 @@ final class RestaurantUISnapshotTests: XCTestCase {
         assertSnapshot(matching: navigation, as: .image(on: .iPhoneX(.portrait)))
     }
     
-    private func makeSUT(file: StaticString = #filePath, line: UInt = #line) ->  (sut: RestaurantListViewController, service: RestaurantLoaderSpy) {
+    private func makeSUT(file: StaticString = #filePath, line: UInt = #line) throws ->  (sut: RestaurantListViewController, service: RestaurantLoaderSpy) {
         let service = RestaurantLoaderSpy()
-        let sut = RestaurantListComponse.componse(service: service)
+        let sut = try XCTUnwrap(RestaurantListComponse.componse(service: service) as? RestaurantListViewController)
          
         trackForMemoryLeaks(sut, file: file, line: line)
         trackForMemoryLeaks(service, file: file, line: line)

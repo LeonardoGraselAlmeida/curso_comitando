@@ -10,7 +10,7 @@ import RestaurantDomain
 
 public final class RestaurantListComponse {
     
-    public static func componse(service: RestaurantLoaderProtocol) -> RestaurantListViewController {
+   public static func componse(service: RestaurantLoaderProtocol) -> UITableViewController {
         let decorator = MainQueueDispatchDecorator(decoratee: service)
         let presenter = RestaurantListPresenter()
         let interactor = RestaurantListInteractor(service: decorator, presenter: presenter)
