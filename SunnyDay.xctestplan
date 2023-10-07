@@ -1,0 +1,38 @@
+{
+  "configurations" : [
+    {
+      "id" : "232EEDFE-0452-4639-9505-BB8F38C42DE4",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : true,
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:RestaurantDomain.xcodeproj",
+      "identifier" : "72FCE6B22AD161C500B0761C",
+      "name" : "SunnyDay"
+    }
+  },
+  "testTargets" : [
+    {
+      "enabled" : false,
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:RestaurantDomain.xcodeproj",
+        "identifier" : "72FCE6D12AD161C800B0761C",
+        "name" : "SunnyDayUITests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:RestaurantDomain.xcodeproj",
+        "identifier" : "72FCE6C72AD161C700B0761C",
+        "name" : "SunnyDayTests"
+      }
+    }
+  ],
+  "version" : 1
+}
