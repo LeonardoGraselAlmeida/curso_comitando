@@ -7,9 +7,9 @@
 
 import Foundation
 
-final class MainQueueDispatchDecorator<T> {
+public final class MainQueueDispatchDecorator<T> {
     
-    private let decoratee: T
+    internal let decoratee: T
     
     init(decoratee: T) {
         self.decoratee = decoratee

@@ -8,9 +8,9 @@
 import UIKit
 import RestaurantDomain
 
-final class RestaurantListComponse {
+public final class RestaurantListComponse {
     
-    static func componse(service: RestaurantLoaderProtocol) -> RestaurantListViewController {
+    public static func componse(service: RestaurantLoaderProtocol) -> RestaurantListViewController {
         let decorator = MainQueueDispatchDecorator(decoratee: service)
         let presenter = RestaurantListPresenter()
         let interactor = RestaurantListInteractor(service: decorator, presenter: presenter)
@@ -23,7 +23,7 @@ final class RestaurantListComponse {
 
 extension MainQueueDispatchDecorator: RestaurantLoaderProtocol where T == RestaurantLoaderProtocol {
     
-    func load(completion: @escaping (RestaurantResult) -> Void) {
+    public func load(completion: @escaping (RestaurantResult) -> Void) {
         decoratee.load { [weak self] result in
             guard let self else { return }
             self.dispatch {

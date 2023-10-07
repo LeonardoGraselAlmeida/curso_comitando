@@ -57,6 +57,10 @@
 		72FCE6CD2AD161C800B0761C /* SunnyDayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72FCE6CC2AD161C800B0761C /* SunnyDayTests.swift */; };
 		72FCE6D72AD161C800B0761C /* SunnyDayUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72FCE6D62AD161C800B0761C /* SunnyDayUITests.swift */; };
 		72FCE6D92AD161C800B0761C /* SunnyDayUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72FCE6D82AD161C800B0761C /* SunnyDayUITestsLaunchTests.swift */; };
+		72FCE6E32AD1630A00B0761C /* RestaurantDomain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 729932FB29917C8B0009DE99 /* RestaurantDomain.framework */; };
+		72FCE6E42AD1630A00B0761C /* RestaurantDomain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 729932FB29917C8B0009DE99 /* RestaurantDomain.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		72FCE6E72AD1630A00B0761C /* RestaurantUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72B3F36329BFF4D000E3F565 /* RestaurantUI.framework */; };
+		72FCE6E82AD1630A00B0761C /* RestaurantUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 72B3F36329BFF4D000E3F565 /* RestaurantUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,6 +99,20 @@
 			remoteGlobalIDString = 72FCE6B22AD161C500B0761C;
 			remoteInfo = SunnyDay;
 		};
+		72FCE6E52AD1630A00B0761C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 729932F229917C8B0009DE99 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 729932FA29917C8B0009DE99;
+			remoteInfo = RestaurantDomain;
+		};
+		72FCE6E92AD1630A00B0761C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 729932F229917C8B0009DE99 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 72B3F36229BFF4D000E3F565;
+			remoteInfo = RestaurantUI;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -105,6 +123,18 @@
 			dstSubfolderSpec = 10;
 			files = (
 				72B3F38429BFF9D000E3F565 /* RestaurantDomain.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		72FCE6EB2AD1630A00B0761C /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				72FCE6E42AD1630A00B0761C /* RestaurantDomain.framework in Embed Frameworks */,
+				72FCE6E82AD1630A00B0761C /* RestaurantUI.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -203,6 +233,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				72FCE6E32AD1630A00B0761C /* RestaurantDomain.framework in Frameworks */,
+				72FCE6E72AD1630A00B0761C /* RestaurantUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -603,10 +635,13 @@
 				72FCE6AF2AD161C500B0761C /* Sources */,
 				72FCE6B02AD161C500B0761C /* Frameworks */,
 				72FCE6B12AD161C500B0761C /* Resources */,
+				72FCE6EB2AD1630A00B0761C /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				72FCE6E62AD1630A00B0761C /* PBXTargetDependency */,
+				72FCE6EA2AD1630A00B0761C /* PBXTargetDependency */,
 			);
 			name = SunnyDay;
 			productName = SunnyDay;
@@ -885,6 +920,16 @@
 			isa = PBXTargetDependency;
 			target = 72FCE6B22AD161C500B0761C /* SunnyDay */;
 			targetProxy = 72FCE6D32AD161C800B0761C /* PBXContainerItemProxy */;
+		};
+		72FCE6E62AD1630A00B0761C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 729932FA29917C8B0009DE99 /* RestaurantDomain */;
+			targetProxy = 72FCE6E52AD1630A00B0761C /* PBXContainerItemProxy */;
+		};
+		72FCE6EA2AD1630A00B0761C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 72B3F36229BFF4D000E3F565 /* RestaurantUI */;
+			targetProxy = 72FCE6E92AD1630A00B0761C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

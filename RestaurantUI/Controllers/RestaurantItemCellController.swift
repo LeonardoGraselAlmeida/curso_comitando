@@ -8,7 +8,7 @@
 import UIKit
 import RestaurantDomain
 
-final class RestaurantItemCellController {
+public final class RestaurantItemCellController {
     
     let model: RestaurantItem
     
