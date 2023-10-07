@@ -64,6 +64,8 @@
 		72FCE6ED2AD19D8A00B0761C /* RestaurantLoaderCompositeRemoteAndLocal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72FCE6EC2AD19D8A00B0761C /* RestaurantLoaderCompositeRemoteAndLocal.swift */; };
 		72FCE6EF2AD1A4A900B0761C /* RestaurantItem+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72BA9A8929B4F136004F8E63 /* RestaurantItem+Extension.swift */; };
 		72FCE6F02AD1A4AA00B0761C /* RestaurantItem+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72BA9A8929B4F136004F8E63 /* RestaurantItem+Extension.swift */; };
+		72FCE6F12AD1A76F00B0761C /* XCTestCase+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723559AA299985580099B84C /* XCTestCase+Extension.swift */; };
+		72FCE6F22AD1A77000B0761C /* XCTestCase+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723559AA299985580099B84C /* XCTestCase+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -888,6 +890,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				72FCE6F12AD1A76F00B0761C /* XCTestCase+Extension.swift in Sources */,
 				72FCE6CD2AD161C800B0761C /* RestaurantLoaderCompositeRemoteAndLocal.swift in Sources */,
 				72FCE6EF2AD1A4A900B0761C /* RestaurantItem+Extension.swift in Sources */,
 			);
@@ -897,6 +900,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				72FCE6F22AD1A77000B0761C /* XCTestCase+Extension.swift in Sources */,
 				72FCE6D92AD161C800B0761C /* SunnyDayUITestsLaunchTests.swift in Sources */,
 				72FCE6D72AD161C800B0761C /* SunnyDayUITests.swift in Sources */,
 				72FCE6F02AD1A4AA00B0761C /* RestaurantItem+Extension.swift in Sources */,

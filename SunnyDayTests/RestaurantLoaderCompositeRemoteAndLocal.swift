@@ -10,62 +10,82 @@ import RestaurantDomain
 @testable import SunnyDay
 
 internal final class RestaurantLoaderCompositeRemoteAndLocalTestCase: XCTestCase {
-
+    
     internal func test_load_composite_should_be_completion_success_for_main_loader() {
-        let main = RestaurantLoaderSpy()
-        let fallback = RestaurantLoaderSpy()
-        let sut = RestaurantLoaderCompositeRemoteAndLocal(main: main, fallback: fallback)
-        
-        sut.load { _ in }
-        main.competionResult(.success([.makeItem()]))
-        
-        XCTAssertEqual(main.methodsCalled, [.load])
-        XCTAssertEqual(fallback.methodsCalled, [])
+        let result: RestaurantLoaderProtocol.RestaurantResult = .success([.makeItem()])
+        let sut = makeSUT(mainResult: result, fallbackResult: .failure(.connectivity))
+        assert(sut, completion: result)
     }
     
     internal func test_load_composite_should_be_completion_success_for_fallback_loader() {
-        let main = RestaurantLoaderSpy()
-        let fallback = RestaurantLoaderSpy()
-        let sut = RestaurantLoaderCompositeRemoteAndLocal(main: main, fallback: fallback)
-        
-        sut.load { _ in }
-        main.competionResult(.failure(.connectivity))
-        fallback.competionResult(.success([.makeItem()]))
-        
-        XCTAssertEqual(main.methodsCalled, [.load])
-        XCTAssertEqual(fallback.methodsCalled, [.load])
+        let result: RestaurantLoaderProtocol.RestaurantResult = .success([.makeItem()])
+        let sut = makeSUT(mainResult: .failure(.connectivity), fallbackResult: result)
+        assert(sut, completion: result)
     }
     
     internal func test_load_composite_should_be_completion_error_when_main_and_fallback_returned_failure() {
-        let main = RestaurantLoaderSpy()
-        let fallback = RestaurantLoaderSpy()
+        let result: RestaurantLoaderProtocol.RestaurantResult = .failure(.connectivity)
+        let sut = makeSUT(mainResult: .failure(.invalidData), fallbackResult: result)
+        assert(sut, completion: result)
+    }
+    
+    private func makeSUT(
+        mainResult: RestaurantLoaderProtocol.RestaurantResult,
+        fallbackResult: RestaurantLoaderProtocol.RestaurantResult,
+        file: StaticString = #file,
+        line: UInt = #line
+    ) -> RestaurantLoaderProtocol {
+        let main = RestaurantLoaderSpy(result: mainResult)
+        let fallback = RestaurantLoaderSpy(result: fallbackResult)
         let sut = RestaurantLoaderCompositeRemoteAndLocal(main: main, fallback: fallback)
         
-        sut.load { _ in }
-        main.competionResult(.failure(.connectivity))
-        fallback.competionResult(.failure(.connectivity))
+        trackForMemoryLeaks(main)
+        trackForMemoryLeaks(fallback)
+        trackForMemoryLeaks(sut)
         
-        XCTAssertEqual(main.methodsCalled, [.load])
-        XCTAssertEqual(fallback.methodsCalled, [.load])
+        return sut
     }
-
+    
+    private func assert(
+        _ sut: RestaurantLoaderProtocol,
+        completion result: RestaurantLoaderProtocol.RestaurantResult,
+        file: StaticString = #file,
+        line: UInt = #line
+    ) {
+        let exp = expectation(description: "esperando bloco ser completado")
+        sut.load { returnedResult in
+            switch (result, returnedResult) {
+            case let(.success(resultItems), .success(returnedItems)):
+                XCTAssertEqual(resultItems, returnedItems)
+            case (.failure,.failure):
+                break
+            default:
+                XCTFail("Esperado \(result), porem retornou \(returnedResult)", file: file, line: line)
+            }
+            exp.fulfill()
+        }
+        
+        wait(for: [exp], timeout: 1.0)
+    }
+    
 }
 
 internal final class RestaurantLoaderSpy: RestaurantLoaderProtocol {
     
     enum Methods: Equatable {
-            case load
+        case load
     }
     
     private(set) var methodsCalled = [Methods]()
-    private var completionHandler: ((RestaurantResult) -> Void)?
+    
+    private let result: RestaurantResult
+    
+    init(result: RestaurantResult) {
+        self.result = result
+    }
     
     internal func load(completion: @escaping (RestaurantResult) -> Void) {
         methodsCalled.append(.load)
-        completionHandler = completion
-    }
-    
-    internal func competionResult(_ result: RestaurantResult) {
-        completionHandler?(result)
+        completion(result)
     }
 }
