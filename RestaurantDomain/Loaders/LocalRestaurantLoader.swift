@@ -7,6 +7,10 @@
 
 import Foundation
 
+public protocol LocalRestaurantLoaderInsert {
+    func save(_ items: [RestaurantItem], completion: @escaping (Error?) -> Void)
+}
+
 public final class LocalRestaurantLoader {
     
     private let cache: CacheClientProtocol
@@ -19,17 +23,6 @@ public final class LocalRestaurantLoader {
         self.cache = cache
         self.currentDate = currentDate
         self.cachePolicy = cachePolicy
-    }
-    
-    public func save(_ items: [RestaurantItem], completion: @escaping (Error?) -> Void) {
-        cache.delete { [weak self] error in
-            guard let self else { return }
-            guard let error else {
-                return self.saveOnCache(items, completion: completion)
-            }
-            completion(error)
-            
-        }
     }
     
     private func saveOnCache(_ items: [RestaurantItem], completion: @escaping (Error?) -> Void) {
@@ -53,6 +46,21 @@ public final class LocalRestaurantLoader {
     }
 }
 
+extension LocalRestaurantLoader: LocalRestaurantLoaderInsert {
+    
+    public func save(_ items: [RestaurantItem], completion: @escaping (Error?) -> Void) {
+        cache.delete { [weak self] error in
+            guard let self else { return }
+            guard let error else {
+                return self.saveOnCache(items, completion: completion)
+            }
+            completion(error)
+            
+        }
+    }
+    
+}
+
 extension LocalRestaurantLoader: RestaurantLoaderProtocol {
     
     public func load(completion: @escaping (RestaurantResult) -> Void) {
@@ -68,4 +76,5 @@ extension LocalRestaurantLoader: RestaurantLoaderProtocol {
             }
         }
     }
+    
 }

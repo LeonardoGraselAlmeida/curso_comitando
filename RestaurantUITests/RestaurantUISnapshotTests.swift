@@ -32,7 +32,7 @@ final class RestaurantUISnapshotTests: XCTestCase {
     
     private func makeSUT(file: StaticString = #filePath, line: UInt = #line) throws ->  (sut: RestaurantListViewController, service: RestaurantLoaderSpy) {
         let service = RestaurantLoaderSpy()
-        let sut = try XCTUnwrap(RestaurantListComponse.componse(service: service) as? RestaurantListViewController)
+        let sut = try XCTUnwrap(RestaurantListCompose.compose(service: service) as? RestaurantListViewController)
          
         trackForMemoryLeaks(sut, file: file, line: line)
         trackForMemoryLeaks(service, file: file, line: line)

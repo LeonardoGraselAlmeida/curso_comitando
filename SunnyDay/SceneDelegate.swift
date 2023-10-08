@@ -6,63 +6,49 @@
 //
 
 import UIKit
-import RestaurantDomain
 import RestaurantUI
+import RestaurantDomain
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     var window: UIWindow?
     
+    private lazy var localService = {
+        let cache = CacheService(managerURL: fileManagerURL)
+        return LocalRestaurantLoader(cache: cache, currentDate: Date.init)
+    }()
+    
+    lazy var fileManagerURL = {
+        return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathExtension("SunnyDay.store")
+    }()
+    
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        guard let _ = (scene as? UIWindowScene) else { return }
+        guard let scene = (scene as? UIWindowScene) else { return }
         
-        let session = URLSession(configuration: .ephemeral)
-        let networkService = NetworkService(session: session)
-        let url = URL(string: "https://raw.githubusercontent.com/comitando/assets/main/api/restaurant_list_endpoint.json")!
-        let remoteService = RemoteRestaurantLoader(url: url, networkClient: networkService)
+        let compositeService = RestaurantLoaderCompositeRemoteAndLocal(main: makeRemoteLoader(), fallback: localService)
+        let decoratorService = RestaurantLoaderCacheDecorator(decoratee: compositeService, cache: localService)
         
-        let fileManagerURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appending(path: "SunnyDay.store")
-        let cacheService = CacheService(managerURL: fileManagerURL)
-        let localService = LocalRestaurantLoader(cache: cacheService) {
-            Date()
-        }
-        
-        let compositeService = RestaurantLoaderCompositeRemoteAndLocal(main: remoteService, fallback: localService)
-        
-        let controller = RestaurantListComponse.componse(service: compositeService)
+        let controller = RestaurantListCompose.compose(service: decoratorService)
         let navigation = UINavigationController(rootViewController: controller)
         
+        window = UIWindow(windowScene: scene)
         window?.rootViewController = navigation
+        window?.makeKeyAndVisible()
     }
     
-    func sceneDidDisconnect(_ scene: UIScene) {
-        // Called as the scene is being released by the system.
-        // This occurs shortly after the scene enters the background, or when its session is discarded.
-        // Release any resources associated with this scene that can be re-created the next time the scene connects.
-        // The scene may re-connect later, as its session was not necessarily discarded (see `application:didDiscardSceneSessions` instead).
+    private func remoteService() -> RestaurantLoaderProtocol {
+        let session = URLSession(configuration: .ephemeral)
+        let network = NetworkService(session: session)
+        let url = URL(string: "https://raw.githubusercontent.com/comitando/assets/main/api/restaurant_list_endpoint.json")!
+        return RemoteRestaurantLoader(url: url, networkClient: network)
+    }
+    
+    func makeRemoteLoader() -> RestaurantLoaderProtocol {
+        return remoteService()
     }
     
     func sceneDidBecomeActive(_ scene: UIScene) {
-        // Called when the scene has moved from an inactive state to an active state.
-        // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
+        localService.validateCache()
     }
-    
-    func sceneWillResignActive(_ scene: UIScene) {
-        // Called when the scene will move from an active state to an inactive state.
-        // This may occur due to temporary interruptions (ex. an incoming phone call).
-    }
-    
-    func sceneWillEnterForeground(_ scene: UIScene) {
-        // Called as the scene transitions from the background to the foreground.
-        // Use this method to undo the changes made on entering the background.
-    }
-    
-    func sceneDidEnterBackground(_ scene: UIScene) {
-        // Called as the scene transitions from the foreground to the background.
-        // Use this method to save data, release shared resources, and store enough scene-specific state information
-        // to restore the scene back to its current state.
-    }
-    
     
 }
-
