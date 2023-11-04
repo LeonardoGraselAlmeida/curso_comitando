@@ -1,0 +1,259 @@
+name: Comitando
+
+settings: 
+  MARKETING_VERSION: "0.1.0"
+  SWIFT_VERSION: 5.7
+  VERSIONING_SYSTEM: "apple-generic"
+  CLANG_ENABLE_OBJC_WEAK: "YES"
+  ARCHS: $(ARCHS_STANDARD)
+  CODE_SIGN_IDENTITY: ""
+  
+options:
+  xcodeVersion: "14.2"
+  createIntermediateGroups: true
+  developmentLanguage: "pt-BR"
+  bundleIdPrefix: br.com.comitando
+  deploymentTarget:
+    iOS: 13.0
+    macOS: 12.0
+
+configs:
+  Debug: debug
+  Release: release
+
+packages:
+  SnapshotTesting:
+    url: https://github.com/pointfreeco/swift-snapshot-testing
+    from: 1.10.0
+
+targets:
+  NetworkClient:
+    templates:
+      - iOSFramework
+  NetworkClientTests:
+    templates:
+      - iOSFrameworkTests
+    dependencies:
+      - target: NetworkClient
+
+  RestaurantDomain:
+    templates:
+      - iOSFramework
+    dependencies:
+      - target: NetworkClient
+  RestaurantDomainTests:
+    templates:
+      - iOSFrameworkTests
+    dependencies:
+      - target: RestaurantDomain
+  # RestaurantDomainIntegrationTests:
+  #   templates:
+  #     - iOSFrameworkTests
+  #   dependencies:
+  #     - target: RestaurantDomain
+
+  RestaurantUI:
+    templates:
+      - iOSFramework
+    dependencies:
+      - target: RestaurantDomain
+      - target: NetworkClient
+  RestaurantUITests:
+    templates:
+      - iOSFrameworkTests
+    dependencies:
+      - target: RestaurantUI
+      - package: SnapshotTesting
+
+  SunnyDay:
+    templates: 
+      - iOSApp
+    dependencies:
+      - target: RestaurantUI
+      - target: RestaurantDomain
+      - target: NetworkClient
+  SunnyDayTests:
+    templates:
+      - iOSAppTests
+    dependencies:
+      - target: SunnyDay
+  SunnyDayUITests:
+    templates:
+      - iOSAppUITests
+    dependencies:
+      - target: SunnyDay
+
+schemes:
+  SunnyDay:
+    build:
+      targets:
+        SunnyDay: [run, test, archive]
+    archive:
+      config: Release
+    run:
+      config: Debug
+    test: 
+      config: Debug
+      gatherCoverageData: true
+      coverageTargets: 
+        - SunnyDay
+      targets:
+        - name: SunnyDayTests
+          randomExecutionOrder: true
+        - name: SunnyDayUITests
+          randomExecutionOrder: true
+  
+  RestaurantUI:
+    build:
+      targets:
+        RestaurantUI: [run, test]
+    run:
+      config: Debug
+    test: 
+      config: Debug
+      gatherCoverageData: true
+      coverageTargets: 
+        - RestaurantUI
+      targets:
+        - name: RestaurantUITests
+          randomExecutionOrder: true
+ 
+  RestaurantDomain:
+    build:
+      targets:
+        RestaurantDomain: [run, test]
+    run:
+      config: Debug
+    test: 
+      config: Debug
+      gatherCoverageData: true
+      coverageTargets: 
+        - RestaurantDomain
+      targets:
+        - name: RestaurantDomainTests
+          randomExecutionOrder: true
+
+  NetworkClient:
+    build:
+      targets:
+        NetworkClient: [run, test]
+    run:
+      config: Debug
+    test: 
+      config: Debug
+      gatherCoverageData: true
+      coverageTargets: 
+        - NetworkClient
+      targets:
+        - name: NetworkClientTests
+          randomExecutionOrder: true
+  
+  # IntegrationTests:
+  #   build:
+  #     targets:
+  #       RestaurantDomain: [run, test]
+  #   run:
+  #     config: Debug
+  #   test: 
+  #     config: Debug
+  #     targets:
+  #       - name: RestaurantDomainIntegrationTests
+  #         randomExecutionOrder: true
+
+  CI-macOS:
+    build:
+      targets:
+        RestaurantDomain: [run, test]
+        NetworkClient: [run, test]
+    run:
+      config: Debug
+    test: 
+      config: Debug
+      targets:
+        # - name: RestaurantDomainIntegrationTests
+        #   randomExecutionOrder: true
+        - name: RestaurantDomainTests
+          randomExecutionOrder: true
+        - name: NetworkClientTests
+          randomExecutionOrder: true
+  
+  CI-iOS:
+    build:
+      targets:
+        RestaurantUI: [run, test]
+        SunnyDay: [run, test]
+    run:
+      config: Debug
+    test: 
+      config: Debug
+      targets:
+        - name: RestaurantUITests
+          randomExecutionOrder: true
+        - name: SunnyDayTests
+          randomExecutionOrder: true
+        - name: SunnyDayUITests
+          randomExecutionOrder: true
+
+targetTemplates:
+  iOSFramework:
+    platform: iOS
+    type: framework
+    sources: 
+      - path: ${target_name}
+    info:
+      path: ${target_name}/Info.plist
+    settings:
+      CODE_SIGN_IDENTITY: ""
+
+  iOSFrameworkTests:
+    platform: iOS
+    type: bundle.unit-test
+    sources: 
+      - path: ${target_name}
+        excludes:
+          - "__Snapshots__"
+          - "**/__Snapshots__"
+      - path: XCTestCase/
+        createIntermediateGroups: false
+        type: group
+    info:
+      path: ${target_name}/Info.plist
+  
+  iOSApp:
+    platform: iOS
+    type: application
+    sources: 
+      - path: ${target_name}
+    settings:
+      base:
+        INFOPLIST_FILE: ${target_name}/Info.plist
+        PRODUCT_BUNDLE_IDENTIFIER: br.com.comitando.SunnyDay
+      configs:
+        Release:
+          CODE_SIGN_IDENTITY: "Apple Distribution: Julio Fernandes (6BPH8672S8)"
+          PROVISIONING_PROFILE_SPECIFIER: "match AppStore br.com.comitando.SunnyDay"
+        Debug:
+          CODE_SIGN_IDENTITY: "Apple Development: Julio Fernandes (RRR2UZ75HH)"
+          PROVISIONING_PROFILE_SPECIFIER: "match Development br.com.comitando.SunnyDay"
+
+  iOSAppTests:
+    platform: iOS
+    type: bundle.unit-test
+    sources: 
+      - path: ${target_name}
+        excludes:
+          - "__Snapshots__"
+          - "**/__Snapshots__"
+      - path: XCTestCase/
+        createIntermediateGroups: false
+        type: group
+    info:
+      path: ${target_name}/Info.plist
+  
+  iOSAppUITests: 
+    platform: iOS
+    type: bundle.ui-testing
+    sources: 
+      - path: ${target_name}
+    info:
+      path: ${target_name}/Info.plist

@@ -8,6 +8,7 @@
 import UIKit
 import RestaurantUI
 import RestaurantDomain
+import NetworkClient
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     

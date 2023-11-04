@@ -1,12 +1,12 @@
 //
 //  NetworkClientSpy.swift
-//  RestaurantDomainTests
+//  NetworkClientTests
 //
 //  Created by Leonardo Almeida on 12/02/23.
 //
 
 import Foundation
-import RestaurantDomain
+import NetworkClient
 
 final class NetworkClientSpy: NetworkClient {
     

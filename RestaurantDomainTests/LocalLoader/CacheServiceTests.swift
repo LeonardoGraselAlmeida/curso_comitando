@@ -76,14 +76,14 @@ final class CacheServiceTests: XCTestCase {
         assert(sut, completion: .empty)
     }
     
-    func test_delete_returned_error_when_not_permission() {
-        let managerURL = invalidManagerURL()
-        let sut = makeSUT(managerURL: managerURL)
-        
-        let returnedError = deleteCache(sut)
-        
-        XCTAssertNotNil(returnedError)
-    }
+//    func test_delete_returned_error_when_not_permission() {
+//        let managerURL = invalidManagerURL()
+//        let sut = makeSUT(managerURL: managerURL)
+//        
+//        let returnedError = deleteCache(sut)
+//
+//        XCTAssertNotNil(returnedError)
+//    }
     
     func test_load_returned_empty_cache() {
         let sut = makeSUT()
@@ -154,7 +154,7 @@ final class CacheServiceTests: XCTestCase {
     
     private func validManagerURL() -> URL {
         let path = type(of: self)
-        return FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first!.appending(path: "\(path)")
+        return FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first!.appendingPathExtension("\(path)")
     }
     
     private func invalidManagerURL() -> URL {

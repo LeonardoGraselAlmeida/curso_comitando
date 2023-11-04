@@ -1,6 +1,6 @@
 //
 //  NetworkClient.swift
-//  RestaurantDomain
+//  NetworkClient
 //
 //  Created by Leonardo Almeida on 08/02/23.
 //

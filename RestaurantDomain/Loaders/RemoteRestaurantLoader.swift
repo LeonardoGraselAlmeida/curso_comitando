@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import NetworkClient
 
 struct RestaurantRoot: Decodable {
     let items: [RestaurantItem]
